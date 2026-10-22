@@ -16,7 +16,8 @@ services:
   stack:
     # Location of published STACK API image goes here.
     image: stackmaths/stackapi:2026101500-latest
-    platform: linux/x86_64
+    # The following appeared to be required on my mac, possibly not required on other OS
+    #platform: linux/x86_64
     restart: unless-stopped
     ports:
       - '3080:80'
