@@ -1,0 +1,28 @@
+\subsection{First order linear ODEs}
+The ODE \eqref{eq:GFOO} is \textbf{linear} if $f(x,y)=-p(x)y+q(x),$ in which case we can write the standard form of a linear first order ODE as \[y'+py=q\] where $p$ and $q$ can be any functions of $x$.
+
+In this case the ODE can be solved in terms of the \textbf{integrating factor} \[I(x)=e^{\int p(x)\,dx}.\] The solution is given by
+\[y=\frac{1}{I(x)}\int I(x)q(x)\, dx.\]
+Proof:
+We need to show that $y$ satisfies the ODE $y'+py=q.$\\ 
+
+The first step is to observe that $I'=e^{\int p\,dx}p=Ip.$\\
+
+With $y=\frac{1}{I}\int Iq\,dx$ we have \[y'=-\frac{I'}{I^2}\int Iq\,dx+\frac{1}{I}Iq =-\frac{I'}{I}y+q=-\frac{Ip}{I}y+q=-py+q,\]
+as required.\\
+
+\begin{example}
+    Solve the IVP \[y'-\frac{2}{x}y=3x^3, \ \ y(-1)=2.\]
+
+    In the above notation $p=-\frac{2}{x}$ and $q=3x^3.$
+    \begin{equation*}
+        \begin{gathered}
+            I=\exp\bigg(\int p\,dx\bigg)=\exp\bigg(\int -\frac{2}{x}\,dx\bigg) =\exp\bigg(-2\log x\bigg)=\frac{1}{x^2}. \\
+            y=\frac{1}{I}\int Iq\,dx=x^2\int \frac{1}{x^2}3x^3\,dx =x^2\int 3x\,dx=x^2\bigg(\frac{3}{2}x^2+c\bigg) =\frac{3}{2}x^4+cx^2.
+        \end{gathered} 
+    \end{equation*}
+
+    Using $y(-1)=2$ we have $2=\frac{3}{2}+c$, hence $c=\frac{1}{2}$, giving $y=\frac{3}{2}x^4+\frac{1}{2}x^2.$
+\end{example}
+
+\newpage

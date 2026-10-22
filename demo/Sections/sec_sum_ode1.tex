@@ -1,0 +1,25 @@
+\subsection{Summary: First order ODEs}
+
+You should have a good understanding of how to solve the various types of first order ODEs we covered. We assume a first order ODE can be written in the form $\frac{dy}{dx} = f(x,y)$. Here are some key points:
+
+\begin{itemize}
+
+\item The \emph{general solution} to a first order ODE will have 1 free real parameter which we can call the integration constant. If we are given an \emph{initial condition} determining the value of $y$ for some specific value of $x$ then we can fix this integration constant.
+
+\item Often when solving an ODE we will get an \emph{implicit solution}, i.e.\ and algebraic expression involving $x$ and $y$. If it is reasonably straightforward to do so, solve this to write an \emph{explicit solution}, i.e.\ an explicit expression for $y(x)$ as a function of $x$.
+
+\item If $f(x,y) = X(x)Y(y)$ the ODE is \emph{separable}. Solve by separating the $x$ and $y$ dependence and integrating: $\int \frac{dy}{Y} = \int X dx$.
+
+\item If $f(tx, ty) = f(x,y)$ for all $x, y, t \in \mathbb{R}$ then the ODE is \emph{first order homogeneous}. Solve by substituting $v = y/x$ for $y$ and the OPE will become separable in variables $x$ and $v$. Remember to substitute back after solving to give the solution for the original variable $y$.
+
+\item If $f(x,y) = -p(x)y + q(x)$, i.e.\ if $f(x,y)$ is linear in $y$, we have a \emph{linear first order ODE} which can be written as $y + py' = q$. We can solve by multiplying both sides by an \emph{integrating factor} $I = \exp(\int p(x) dx)$ so that the LHS becomes the total derivative $(Iy)'$ and we then solve by integrating the RHS $Iq$.
+
+\item A \emph{Bernoulli equation} is a first order ODE of the form $y + p(x) y' = q(x) y^n$ with any $n \in \mathbb{R}\ \{0, 1\}$ where we exclude those values of $n$ for which this is just a linear ODE. We solve by dividing both sides by $y^n$ and substituting $v = y^{1-n}$ which results in a first order linear ODE for $v(x)$.
+
+\item A first order \emph{exact ODE} is one of the form $M(x,y) dx + N(x,y) dy = 0$ with $\frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$ which means we can write $M = \frac{\partial g}{\partial x}$ and $N = \frac{\partial g}{\partial y}$ for such function $g(x,y)$. The ODE is then simply $dg = 0$ which means that $g(x,y) = c$ for some $c \in \mathbb{R}$. To find $g$ either integrate $M$ wrt.\ $x$ while treating $y$ as a constant or integrate $N$ wrt.\ $y$ while treating $x$ as a constant. The integration will give $g(x,y)$ up to an integration `constant' which is an arbitrary function of $y$ and $x$ respectively (since these were treated as constants in the integration). Fix this integration `constant' up to a real constant by substituting the expression for $g$ into the other equation, $N = \frac{\partial g}{\partial y}$ or $M = \frac{\partial g}{\partial x}$ respectively.
+
+\item We can write a first order ODE in the form $M(x,y) dx + N(x,y) dy = 0$ in infinitely many ways since we can multiply through by any function $I(x,y)$. In general this will not be an exact ODE but it can be for specific \emph{integrating factors} $I(x,y)$. Unfortunately there is no general method to finding these integrating factors (unlike the integrating factor for linear ODEs). There are some methods which work in some cases, but we did not cover that this term, so you just need to know the concept.
+
+\end{itemize}
+
+\newpage

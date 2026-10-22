@@ -1,0 +1,69 @@
+\subsection{First order exact ODEs}
+An alternative form in which to write a first order ODE is
+\begin{equation}\label{eq:AFOO}
+    M(x,y)\,dx+N(x,y)\,dy=0. \tag{$\star\star$}
+\end{equation}
+
+Rearranging gives \[\frac{dy}{dx}=-\frac{M(x,y)}{N(x,y)},\] so this agrees with the form \eqref{eq:GFOO} with $f(x,y)=\frac{M(x,y)}{N(x,y)}$.
+
+Note that a given $f(x,y)$ does not correspond to a unique choice of $M(x,y)$ and $N(x,y)$ as only their ratio determines the ODE, so there is a freedom to multiply both $M$ and $N$ by the same arbitrary function.\\
+
+For any function $g(x,y)$ the \textbf{total differential} $dg$ is defined to be \[dg=\frac{\partial g}{\partial x}\,dx+\frac{\partial g}{\partial y}\,dy.\]
+You may think of $dg$ as the small change in the function $g$ that arises in moving from the point $(x,y)$ to $(x+dx,y+dy)$ where $dx$ and $dy$ are both small. In particular, if $dg$ is identically zero then $g$ is a constant.\\
+
+The ODE \eqref{eq:AFOO} is called \textbf{exact} if there exists a function $g(x,y)$ such that the left hand side of \eqref{eq:AFOO} is equal to the total derivative $dg$ ie. \[M=\frac{\partial g}{\partial x} \quad \text{and} \quad N=\frac{\partial g}{\partial y}.\]
+In this case the ODE says that $dg=0$ hence $g=constant$ and this yields the solution of the ODE.\\
+ 
+The equality of the mixed partial derivatives $\frac{\partial^2 g}{\partial y\partial x}= \frac{\partial^2 g}{\partial x\partial y}$ requires that an exact equation satisfies $\frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}$.
+
+This results in the following \textbf{test for exactness}
+\[
+\text{The ODE} \quad M(x,y)\,dx+N(x,y)\,dy=0 \quad \text{is exact iff} \quad \frac{\partial M}{\partial y}=\frac{\partial N}{\partial x}.
+\]
+\newpage
+
+\begin{example}
+    Show that \[(3e^{3x}y+e^x)\,dx+(e^{3x}+1)\,dy=0\] is an exact equation, and hence solve it.
+    
+    In this example $M=3e^{3x}y+e^x$ and $N=e^{3x}+1.$
+
+    $\frac{\partial M}{\partial y}=3e^{3x}=\frac{\partial N}{\partial x}$
+    hence this equation is exact.
+
+    \[\text{From} \ M=\frac{\partial g}{\partial x}\ \text{we have} \ \frac{\partial g}{\partial x}=3e^{3x}y+e^x \quad \text{giving } \ g=e^{3x}y+e^x+\phi(y),\]
+    where the usual constant of integration is replaced by an arbitrary function of integration $\phi(y)$ because of the partial differentiation. To determine this function we use
+    \begin{equation}
+        \begin{gathered}
+            \frac{\partial g}{\partial y}=N, \quad \frac{\partial g}{\partial y}=e^{3x}+1=e^{3x}+\phi', \quad \text{so} \ \phi'=1, \ \text{giving} \ \phi=y. \\
+            \text{Finally we have that}\quad g=e^{3x}y+e^x+y=\text{constant}=c.
+        \end{gathered}
+    \end{equation}
+
+    In this case we can write the solution in explicit form $y={(c-e^x)}/{(e^{3x}+1)}.$
+
+    As an exercise check that this does indeed solve the starting ODE \[y'=-(3e^{3x}y+e^x)/(e^{3x}+1).\] Note that this example is also a linear ODE, so could also have been solved using an integrating factor.\\
+\end{example}
+
+Consider an ODE \quad $M\,dx+N\,dy=0$ \quad that is not exact ie. $\frac{\partial M}{\partial y}\ne\frac{\partial N}{\partial x}.$
+ 
+By multiplying the ODE by a function $I(x,y)$ we can get an equivalent representation of the ODE as \quad $m\,dx+n\,dy=0$ \quad where $m=MI$ and $n=NI.$ If this equation is exact ie. $\frac{\partial m}{\partial y}=\frac{\partial n}{\partial x}$ then $I$ is called an \textbf{integrating factor} for the original ODE.\\
+
+\begin{example}
+    Show that $x$ is an integrating factor for \[(3xy-y^2)\,dx+x(x-y)\, dy=0.\]
+    
+    $M=3xy-y^2$ \ so \ $\frac{\partial M}{\partial y}=3x-2y,$ but $N=x^2-xy$ \ so \  $\frac{\partial N}{\partial x}=2x-y.$
+
+    Therefore \ $\frac{\partial M}{\partial y}\ne \frac{\partial N}{\partial x}$ and the ODE is not exact.
+
+    However, with the integrating factor $I=x$ we get $m=MI=3x^2y-y^2x$ and $n=NI=x^3-x^2y$ so now $\frac{\partial m}{\partial y}=3x^2-2yx= \frac{\partial n}{\partial x}$ which is exact.
+    
+    We can now solve this exact equation using the above method. 
+
+    $\frac{\partial g}{\partial x}=m=3x^2y-y^2x$ \ giving $g=x^3y-\frac{1}{2}y^2x^2+\phi(y).$ 
+
+    $\frac{\partial g}{\partial y}=n=x^3-x^2y=x^3-x^2y+\phi'$ so \ $\phi'=0$ and we can take $\phi=0.$ 
+
+    This gives the final solution $g=\text{constant}=c$ \ ie. \  $x^3y-\frac{1}{2}y^2x^2=c.$
+\end{example}
+
+\newpage

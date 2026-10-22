@@ -1,0 +1,67 @@
+from: latex+latex_macros
+
+to: markdown+tex_math_single_backslash-tex_math_dollars
+#
+# output-file: ./pandoc_converted.html
+#
+# template: template/html5template
+standalone: true
+
+# note that structured variables may be specified:
+variables:
+  lang: en
+  # If you'd like to store your images in a subfolder compared to your source tex, use the following option
+  # imageDir: ./Images/
+  # up to offsets, 1 corresponds to section, 2 to subsection and so on
+  # numberWithinLevel: 1
+  # counterOffset: 0
+  # subcounterOffset: 1
+  # environmentCounters:
+#      counter1:
+#       - definition
+#       - theorem
+#       - lemma
+#       - example
+#       - exampleqed
+#       - proposition
+#       - remark
+#       - corollary
+#       - exercise
+#       - question
+      # If you want to use a separate counter for examples, uncomment the two lines below and comment out example from the list above. Move other envinronments to counter2 similarly. You may also move environments to an environment3 (or 4) if required. Simply follow the structure as given here.
+     # counter2:
+      # - example
+  
+# html-math-method:
+#   method: mathjax
+#   url: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  
+# include-in-header: [template/mathjax_config.html]
+include-after-body: []
+# resource-path: [".","./Images/"]
+
+# If you want to load additional custom css, do so here. This is loaded after the external stylesheet.
+# css:
+# - template/style/latex.css
+
+filters:
+# - filters/divit.lua
+- filters/eqref.lua
+- filters/tableCaps.lua
+# - filters/equationLabels.lua
+
+# part, chapter, section, or default:
+# top-level-division: default
+
+# pdf-engine: pdflatex
+
+# table-of-contents: true
+# toc-depth: 2
+# number-sections: true
+
+# a list of offsets at each heading level
+# number-offset: [0,0,0,0,0,0]
+
+# section-divs: true
+# identifier-prefix: ""
+# title-prefix: ""

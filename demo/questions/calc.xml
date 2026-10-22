@@ -1,0 +1,1205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<!-- question: 0  -->
+  <question type="category">
+    <category>
+      <text>$course$/top/STACK Questions</text>
+    </category>
+    <info format="html">
+      <text></text>
+    </info>
+    <idnumber></idnumber>
+  </question>
+
+<!-- question: 0  -->
+  <question type="category">
+    <category>
+      <text>$course$/top/STACK Questions/Calculus</text>
+    </category>
+    <info format="html">
+      <text><![CDATA[<p>These&nbsp;questions were created for the 1st year Calculus course.&nbsp;</p>]]></text>
+    </info>
+    <idnumber></idnumber>
+  </question>
+  
+
+<!-- question: 12820  -->
+  <question type="stack">
+    <name>
+      <text>1st order ODE -- Bernoulli</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<div class="myaccessible"><p></p>
+<p>Solve the following first order differential equation for \( x(t) \):</p>
+<p>\[ {@ fft @} \]</p>
+  <p>\( x(t) = \) [[input:ans1]] [[validation:ans1]]</p></div>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text><![CDATA[<div class="myaccessible"><p>This is a Bernoulli differential equation. To solve this question, you should first write the ODE in the form \[x^{-n}\frac{dx}{dt} + p(t)x^{1-n} = q(t),\] for some \(n\). If you then make the substitution \(v = x^{1-n}\), then this ODE becomes a linear
+    ODE in terms of \(v\). Once you've solved this ODE for \(v\), you then need to use the substitution in order to find the required solution for \(x\).<br></p></div>]]></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.1000000</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <stackversion>
+      <text>2018080600</text>
+    </stackversion>
+    <questionvariables>
+      <text><![CDATA[r(x):=rand_with_prohib(-x,x,[0]);
+randconst:r(5);
+r2:r(5);
+tinv:1/t;
+lindenomwithconst: 1/(t+randconst);
+trigp:[-tan(t),cot(t)];
+randrationallin:(r(5)*t+r(5));
+randrationalp:diff(randrationallin,t)/randrationallin;
+
+randlinear:r2*t+randconst;
+gaussian:%e^(randconst*t^2);
+simplebyparts:[r2*sin(randconst*t),r2*cos(randconst*t),r2*%e^(randconst*t)];
+
+pqpairs:append([[tinv,gaussian],[randlinear,r2*t*%e^(-randconst*t)],[randlinear,randconst*%e^(-r2*t^2/2+r(3)*t+r(4))],[randrationalp,randlinear]],maplist(lambda([x],[lindenomwithconst,x]),simplebyparts),maplist(lambda([x],[x,randlinear]),trigp));
+[p,q]:rand(pqpairs);
+
+/* NB */
+logabs:false;
+
+/* This isn't pretty, but I couldn't find a way to get maxima to display the equations the way I wanted without doing this */
+denp:denom(trigsimp(p));
+f0:x1 + p*x0 = q*xn;
+f1:x1 + p*x0 - q*xn = 0;
+f2:x1 = q*xn - p*x0;
+f3:x1 - q*xn = - p*x0;
+f4:ev(trigsimp(denp*f0),nouns,fullratsimp);
+f5:ev(trigsimp(denp*f1),nouns,fullratsimp);
+f6:ev(trigsimp(denp*f2),nouns,fullratsimp);
+f7:ev(trigsimp(denp*f3),nouns,fullratsimp);
+
+/* ff is the equation to be displayed in LaTeX, with derivatives represented as primes, f is the internal maxima expression */
+n:rand([-2,2,4]);
+ff:rand([f0,f1,f2,f3,f4,f5,f6,f7]);
+fft:at(ff,[x1=(1-n)*x1]);
+f:at(ff,[x1='diff(x(t),t,1),x0=x(t),xn=1]);
+ft:at(ff,[x1=(1-n)*'diff(x(t),t,1),x0=x(t),xn=(x(t))^n]);
+
+texput(x1,"x^{\\prime}(t)");
+texput(x0,"x(t)");
+texput(xn,sconcat("x^{",n,"}(t)"));
+
+IF:%e^(integrate(p,t));
+tat:ev((integrate(IF*q,t)+C)/IF,nouns,fullratsimp);
+ta:rhs(last(solve(x^(1-n)=tat,x)));]]></text>
+    </questionvariables>
+    <specificfeedback format="html">
+      <text><![CDATA[<div class="myaccessible">[[feedback:prt1]]</div>]]></text>
+    </specificfeedback>
+    <questionnote>
+      <text>{@ta@}</text>
+    </questionnote>
+    <questionsimplify>1</questionsimplify>
+    <assumepositive>0</assumepositive>
+    <assumereal>0</assumereal>
+    <prtcorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:green;"><i class="fa fa-check"></i></span> Correct answer, well done.]]></text>
+    </prtcorrect>
+    <prtpartiallycorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:orange;"><i class="fa fa-adjust"></i></span> Your answer is partially correct.]]></text>
+    </prtpartiallycorrect>
+    <prtincorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:red;"><i class="fa fa-times"></i></span> Incorrect answer.]]></text>
+    </prtincorrect>
+    <multiplicationsign>none</multiplicationsign>
+    <sqrtsign>1</sqrtsign>
+    <complexno>i</complexno>
+    <inversetrig>cos-1</inversetrig>
+    <matrixparens>[</matrixparens>
+    <variantsselectionseed></variantsselectionseed>
+    <input>
+      <name>ans1</name>
+      <type>algebraic</type>
+      <tans>ta</tans>
+      <boxsize>30</boxsize>
+      <strictsyntax>1</strictsyntax>
+      <insertstars>0</insertstars>
+      <syntaxhint></syntaxhint>
+      <syntaxattribute>0</syntaxattribute>
+      <forbidwords>[[BASIC-ALGEBRA]],[[BASIC-CALCULUS]]</forbidwords>
+      <allowwords></allowwords>
+      <forbidfloat>1</forbidfloat>
+      <requirelowestterms>0</requirelowestterms>
+      <checkanswertype>0</checkanswertype>
+      <mustverify>1</mustverify>
+      <showvalidation>1</showvalidation>
+      <options></options>
+    </input>
+    <prt>
+      <name>prt1</name>
+      <value>1.0000000</value>
+      <autosimplify>1</autosimplify>
+      <feedbackvariables>
+        <text>T:trigsimp(ev(ft,x(t):ans1,nouns,fullratsimp));
+issol:is(equal(lhs(T),rhs(T)));
+lefthandside:ev((1-n)*'diff(x(t),t,1) + p*x(t),x(t)=ans1,nouns,fullratsimp);
+righthandside:ev(q*(x(t))^n,x(t)=ans1,nouns,fullratsimp);
+containsconst:is(equal(length(delete(t,listofvars(ans1))),1));</text>
+      </feedbackvariables>
+      <node>
+        <name>0</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>issol</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>1.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>1</truenextnode>
+        <trueanswernote>prt1-1-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your answer satisfies the differential equation.</li></ul><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>=</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-1-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>The differential&nbsp;equation can be rearranged to give \[ {@ f0 @}, \] which is the canonical form for a Bernoulli differential equation. Although it is tricky to check directly, if we substitute your solution for \( x(t) \) into the left-hand and right-hand sides of this&nbsp;equation, we find that they are not equal, and so your solution must be wrong.</li></ul><p></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>1</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>containsconst</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>+</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>-1</truenextnode>
+        <trueanswernote>prt1-2-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your general solution contains an unknown constant as expected.</li></ul><br><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.2500000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-2-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>You should have a general solution, which includes an unknown constant. Your answer satisfies the differential equation, but does not contain an unknown constants.</li></ul><br><p></p>]]></text>
+        </falsefeedback>
+      </node>
+    </prt>
+    <deployedseed>2060985036</deployedseed>
+    <deployedseed>510315920</deployedseed>
+    <deployedseed>1239135060</deployedseed>
+    <deployedseed>1078641285</deployedseed>
+    <deployedseed>784777785</deployedseed>
+    <deployedseed>1799650901</deployedseed>
+    <deployedseed>1146337099</deployedseed>
+    <deployedseed>1708058561</deployedseed>
+    <deployedseed>1493416531</deployedseed>
+    <deployedseed>1377984239</deployedseed>
+    <qtest>
+      <testcase>1</testcase>
+      <testinput>
+        <name>ans1</name>
+        <value>ta</value>
+      </testinput>
+      <expected>
+        <name>prt1</name>
+        <expectedscore>1.0000000</expectedscore>
+        <expectedpenalty>0.0000000</expectedpenalty>
+        <expectedanswernote>prt1-2-T</expectedanswernote>
+      </expected>
+    </qtest>
+  </question>
+
+<!-- question: 12819  -->
+  <question type="stack">
+    <name>
+      <text>1st order ODE -- Exact Explicit IVP</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<div class="myaccessible"><p></p>
+<p>Solve the following first order differential equation for \( y(x) \):</p>
+<p>\[ {@ ff @} \]</p>
+<p>\( y(x) = \) [[input:ans1]] [[validation:ans1]]</p>
+<p><br></p>
+<p>If&nbsp;\(y({@ initvalx @})={@initvaly@}\), find the specific solution to the differential equation.</p>
+<p>\( y(x) =\) [[input:ans2]] [[validation:ans2]]</p>
+  <p></p></div>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text><![CDATA[<div class="myaccessible"><p><span style="font-size: 0.9375rem;">This differential&nbsp;equation can be rearranged to give \[ {@ f0 @}. \] If we let \(M = {@Phiy@},\) and&nbsp;\(N = {@Phix@},\) then by checking that \(\frac{dM}{dx} = \frac{dN}{dy}\), we see that this equation is exact. We therefore need to find the function \(g(x,y)\), such that \(M=\frac{dg}{dy},\) and \(N=\frac{dg}{dx}.\) The general solution is then given by \(g(x,y)=c,\) for some unknown constant \(c\), and we just need to rearrange this to find the explicit solution for \(y(x)\).</span><br></p></div>]]></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.1000000</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <stackversion>
+      <text>2018080600</text>
+    </stackversion>
+    <questionvariables>
+      <text><![CDATA[r(x):=rand_with_prohib(-x,x,[0]);
+
+a:r(5);
+Phi1:y*log(x)+r(4)*x^2-r(4)*y;
+Phi2:expand((y+x)^3)+(r(5)*x+r(5));
+Phi3:x^2*%e^(y+a)+abs(r(3))*%e^(y+a)-abs(r(5))+r(5)*x;
+
+[Phi,initvalx,initvaly]:rand([[Phi1,1,r(5)],[Phi2,1,abs(r(5))],[Phi3,0,r(5)]]);
+
+Phix:diff(Phi,x);
+Phiy:diff(Phi,y);
+
+/* NB */
+logabs:false;
+
+/* ff is the equation to be displayed in LaTeX, with derivatives represented as primes, f is the internal maxima expression */
+ordergreat(dx,dy,x,y);
+f0:Phiy*y1+Phix=0;
+f1:Phiy*y1=-Phix;
+f2:Phiy*dy=-Phix*dx;
+f3:Phiy*dy+Phix*dx=0;
+ff:rand([f1,f2,f3]);
+f:at(at(f0,[y=y0]),[y1='diff(y(x),x,1),y0=y(x)]);
+
+texput(y1,"y^{\\prime}(x)");
+
+ta:rhs(last(solve(Phi=c,y)));
+
+sol:solve(ev(ta,x=initvalx)=initvaly,[c]);
+ta2:at(ta,sol[1]);]]></text>
+    </questionvariables>
+    <specificfeedback format="html">
+      <text><![CDATA[<div class="myaccessible"><p><b>Feedback for part 1:&nbsp;</b></p>[[feedback:prt1]]
+<p></p>
+<p><b>Feedback for part 2:&nbsp;</b></p>
+<p>[[feedback:IVP]]<br></p>
+<p></p>
+  <p></p></div>]]></text>
+    </specificfeedback>
+    <questionnote>
+      <text>{@ta@}, {@ta2@}</text>
+    </questionnote>
+    <questionsimplify>1</questionsimplify>
+    <assumepositive>0</assumepositive>
+    <assumereal>0</assumereal>
+    <prtcorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:green;"><i class="fa fa-check"></i></span> Correct answer, well done.]]></text>
+    </prtcorrect>
+    <prtpartiallycorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:orange;"><i class="fa fa-adjust"></i></span> Your answer is partially correct.]]></text>
+    </prtpartiallycorrect>
+    <prtincorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:red;"><i class="fa fa-times"></i></span> Incorrect answer.]]></text>
+    </prtincorrect>
+    <multiplicationsign>none</multiplicationsign>
+    <sqrtsign>1</sqrtsign>
+    <complexno>i</complexno>
+    <inversetrig>cos-1</inversetrig>
+    <matrixparens>[</matrixparens>
+    <variantsselectionseed></variantsselectionseed>
+    <input>
+      <name>ans1</name>
+      <type>algebraic</type>
+      <tans>ta</tans>
+      <boxsize>30</boxsize>
+      <strictsyntax>1</strictsyntax>
+      <insertstars>0</insertstars>
+      <syntaxhint></syntaxhint>
+      <syntaxattribute>0</syntaxattribute>
+      <forbidwords>[[BASIC-ALGEBRA]],[[BASIC-CALCULUS]]</forbidwords>
+      <allowwords></allowwords>
+      <forbidfloat>1</forbidfloat>
+      <requirelowestterms>0</requirelowestterms>
+      <checkanswertype>0</checkanswertype>
+      <mustverify>1</mustverify>
+      <showvalidation>1</showvalidation>
+      <options></options>
+    </input>
+    <input>
+      <name>ans2</name>
+      <type>algebraic</type>
+      <tans>ta2</tans>
+      <boxsize>30</boxsize>
+      <strictsyntax>1</strictsyntax>
+      <insertstars>0</insertstars>
+      <syntaxhint></syntaxhint>
+      <syntaxattribute>0</syntaxattribute>
+      <forbidwords>[[BASIC-ALGEBRA]],[[BASIC-CALCULUS]]</forbidwords>
+      <allowwords></allowwords>
+      <forbidfloat>1</forbidfloat>
+      <requirelowestterms>0</requirelowestterms>
+      <checkanswertype>0</checkanswertype>
+      <mustverify>1</mustverify>
+      <showvalidation>1</showvalidation>
+      <options></options>
+    </input>
+    <prt>
+      <name>IVP</name>
+      <value>1.0000000</value>
+      <autosimplify>1</autosimplify>
+      <feedbackvariables>
+        <text>containsconstIVS:is(equal(length(delete(x,listofvars(ans2))),1));
+isIVPsol:is(trigsimp(ev(f,y(x):ans2,nouns,fullratsimp)));</text>
+      </feedbackvariables>
+      <node>
+        <name>0</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>containsconstIVS</sans>
+        <tans>false</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>1</truenextnode>
+        <trueanswernote>IVP-1-T</trueanswernote>
+        <truefeedback format="html">
+          <text></text>
+        </truefeedback>
+        <falsescoremode>=</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>1</falsenextnode>
+        <falseanswernote>IVP-1-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your solution to the initial value problem should not contain any unknown constants.</li></ul><br><p></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>1</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>isIVPsol</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>2</truenextnode>
+        <trueanswernote>IVP-2-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p>
+<ul>
+    <li><span style="font-size: 0.9375rem;">Your answer satisfies the differential equation.</span><br></li><br></ul><br>
+<p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>IVP-2-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p>
+<ul><li>This differential&nbsp;equation can be rearranged to give \[ {@lhs(f)=0 @}.\] Although it is tricky to see directly, if we substitute your solution for \( y(x) \) into the left-hand side of this equation, we do not get 0, and hence your solution is wrong.&nbsp;</li></ul><br><br>
+<p></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>2</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>at(ans2,x=initvalx)</sans>
+        <tans>initvaly</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>+</truescoremode>
+        <truescore>1.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>-1</truenextnode>
+        <trueanswernote>IVP-3-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li><span>Your solution satisfies the initial conditions.</span></li></ul><br><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>IVP-3-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li><dfn><span style="font-style: normal;">The value of</span>&nbsp;</dfn>your constant is wrong: substituting \(x= {@ initvalx @} \) into your answer gives</li></ul><p></p><p>\[y( {@ initvalx @})={@at(ans2,x=initvalx)@},\]</p><p>whereas we require \(y( {@ initvalx @})&nbsp;= {@ initvaly @}\).</p><br><br><p></p>]]></text>
+        </falsefeedback>
+      </node>
+    </prt>
+    <prt>
+      <name>prt1</name>
+      <value>1.0000000</value>
+      <autosimplify>1</autosimplify>
+      <feedbackvariables>
+        <text>issol:is(trigsimp(ev(f,y(x):ans1,nouns,fullratsimp)));
+lefthandside:ev(lhs(f),y(x)=ans1,nouns,fullratsimp);
+containsconst:is(equal(length(delete(x,listofvars(ans1))),1));
+
+g:y-ans1;</text>
+      </feedbackvariables>
+      <node>
+        <name>0</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>issol</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>1.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>1</truenextnode>
+        <trueanswernote>prt1-1-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your answer satisfies the differential equation.</li></ul><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>=</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-1-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>This differential&nbsp;equation can be rearranged to give \[ {@lhs(f)=0 @}.\] Although it is tricky to see directly, if we substitute your solution for \( y(x) \) into the left-hand side of this equation, we do not get 0, and hence your solution is wrong.&nbsp;</li></ul><p></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>1</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>containsconst</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>+</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>-1</truenextnode>
+        <trueanswernote>prt1-2-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your general solution contains an unknown constant as expected.</li></ul><br><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.2500000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-2-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>You should have a general solution, which includes an unknown constant. Your answer satisfies the differential equation, but does not contain an unknown constants.</li></ul><br><p></p>]]></text>
+        </falsefeedback>
+      </node>
+    </prt>
+    <qtest>
+      <testcase>1</testcase>
+      <testinput>
+        <name>ans1</name>
+        <value>ta</value>
+      </testinput>
+      <expected>
+        <name>prt1</name>
+        <expectedscore>1.0000000</expectedscore>
+        <expectedpenalty>0.0000000</expectedpenalty>
+        <expectedanswernote>prt1-2-T</expectedanswernote>
+      </expected>
+    </qtest>
+    <qtest>
+      <testcase>2</testcase>
+      <testinput>
+        <name>ans1</name>
+        <value>ta</value>
+      </testinput>
+      <testinput>
+        <name>ans2</name>
+        <value>ta2</value>
+      </testinput>
+      <expected>
+        <name>IVP</name>
+        <expectedscore>1.0000000</expectedscore>
+        <expectedpenalty>0.0000000</expectedpenalty>
+        <expectedanswernote>IVP-2-T</expectedanswernote>
+      </expected>
+      <expected>
+        <name>prt1</name>
+        <expectedscore>1.0000000</expectedscore>
+        <expectedpenalty>0.0000000</expectedpenalty>
+        <expectedanswernote>prt1-2-T</expectedanswernote>
+      </expected>
+    </qtest>
+  </question>
+
+<!-- question: 12818  -->
+  <question type="stack">
+    <name>
+      <text>1st order ODE -- Linear</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<div class="myaccessible"><p></p>
+<p>Solve the following first order differential equation for \( x(t) \):</p>
+<p>\[ {@ ff @} \]</p>
+  <p>\( x(t) = \)[[input:ans1]] [[validation:ans1]]</p></div>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text><![CDATA[<div class="myaccessible"><p>This is a linear differential&nbsp;equation. To solve this&nbsp;question, you should first write the ODE in the form \[\frac{dx}{dt} + p(t)x = q(t).\] You then need to find the integrating factor which is given by \[I(t) = e^{\int p(t)\ dt}.\] In terms
+    of this integrating factor, the solution to the ODE is then given by \[x(t) = \frac{1}{I(t)}\int I(t)\cdot q(t)\ dt.\]Don't forget that you need to add a constant of integration.<br></p></div>]]></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.1000000</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <stackversion>
+      <text>2018080600</text>
+    </stackversion>
+    <questionvariables>
+      <text><![CDATA[r(x):=rand_with_prohib(-x,x,[0]);
+randconst:r(5);
+r2:r(5);
+tinv:1/t;
+lindenomwithconst: 1/(t+randconst);
+trigp:[-tan(t),cot(t)];
+randrationallin:(r(5)*t+r(5));
+randrationalp:diff(randrationallin,t)/randrationallin;
+
+randlinear:r2*t+randconst;
+gaussian:%e^(randconst*t^2);
+simplebyparts:[r2*sin(randconst*t),r2*cos(randconst*t),r2*%e^(randconst*t)];
+
+pqpairs:append([[tinv,gaussian],[randlinear,r2*t*%e^(-randconst*t)],[randlinear,randconst*%e^(-r2*t^2/2+r(3)*t+r(4))],[randrationalp,randlinear]],maplist(lambda([x],[lindenomwithconst,x]),simplebyparts),maplist(lambda([x],[x,randlinear]),trigp));
+[p,q]:rand(pqpairs);
+
+/* NB */
+logabs:false;
+
+/* This isn't pretty, but I couldn't find a way to get maxima to display the equations the way I wanted without doing this */
+denp: denom(p);
+f0:x1 + p*x0 = q;
+f1:x1 + p*x0 - q = 0;
+f2:x1 = q - p*x0;
+f3:x1 - q = - p*x0;
+f4:ev(trigsimp(denp*f0),nouns,fullratsimp);
+f5:ev(trigsimp(denp*f1),nouns,fullratsimp);
+f6:ev(trigsimp(denp*f2),nouns,fullratsimp);
+f7:ev(trigsimp(denp*f3),nouns,fullratsimp);
+
+/* ff is the equation to be displayed in LaTeX, with derivatives represented as primes, f is the internal maxima expression */
+ff:rand([f0,f1,f2,f3,f4,f5,f6,f7]);
+f:at(ff,[x1='diff(x(t),t,1),x0=x(t)]);
+
+texput(x1,"x^{\\prime}(t)");
+texput(x0,"x(t)");
+
+IF:%e^(integrate(p,t));
+ta:ev((integrate(IF*q,t)+C)/IF,nouns,fullratsimp);]]></text>
+    </questionvariables>
+    <specificfeedback format="html">
+      <text><![CDATA[<div class="myaccessible">[[feedback:prt1]]</div>]]></text>
+    </specificfeedback>
+    <questionnote>
+      <text>{@ta@}</text>
+    </questionnote>
+    <questionsimplify>1</questionsimplify>
+    <assumepositive>0</assumepositive>
+    <assumereal>0</assumereal>
+    <prtcorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:green;"><i class="fa fa-check"></i></span> Correct answer, well done.]]></text>
+    </prtcorrect>
+    <prtpartiallycorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:orange;"><i class="fa fa-adjust"></i></span> Your answer is partially correct.]]></text>
+    </prtpartiallycorrect>
+    <prtincorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:red;"><i class="fa fa-times"></i></span> Incorrect answer.]]></text>
+    </prtincorrect>
+    <multiplicationsign>none</multiplicationsign>
+    <sqrtsign>1</sqrtsign>
+    <complexno>i</complexno>
+    <inversetrig>cos-1</inversetrig>
+    <matrixparens>[</matrixparens>
+    <variantsselectionseed></variantsselectionseed>
+    <input>
+      <name>ans1</name>
+      <type>algebraic</type>
+      <tans>ta</tans>
+      <boxsize>30</boxsize>
+      <strictsyntax>1</strictsyntax>
+      <insertstars>0</insertstars>
+      <syntaxhint></syntaxhint>
+      <syntaxattribute>0</syntaxattribute>
+      <forbidwords>[[BASIC-ALGEBRA]],[[BASIC-CALCULUS]]</forbidwords>
+      <allowwords></allowwords>
+      <forbidfloat>1</forbidfloat>
+      <requirelowestterms>0</requirelowestterms>
+      <checkanswertype>0</checkanswertype>
+      <mustverify>1</mustverify>
+      <showvalidation>1</showvalidation>
+      <options></options>
+    </input>
+    <prt>
+      <name>prt1</name>
+      <value>1.0000000</value>
+      <autosimplify>1</autosimplify>
+      <feedbackvariables>
+        <text>issol:is(trigsimp(ev(f,x(t):ans1,nouns,fullratsimp)));
+lefthandside:ev('diff(x(t),t,1) + p*x(t),x(t)=ans1,nouns,fullratsimp);
+containsconst:is(equal(length(delete(t,listofvars(ans1))),1));</text>
+      </feedbackvariables>
+      <node>
+        <name>0</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>issol</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>1.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>1</truenextnode>
+        <trueanswernote>prt1-1-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your answer satisfies the differential equation.</li></ul><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>=</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-1-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>The differential&nbsp;equation can be rearranged to give \[ {@ f0 @}, \] which is the canonical form for a linear differential equation. If we substitute your solution for \( x(t) \) into the left-hand side of this equation, we get {@ lefthandside @}, which is not equal to {@ q @}, hence your solution is wrong.&nbsp;</li></ul><p></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>1</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>containsconst</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>+</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>-1</truenextnode>
+        <trueanswernote>prt1-2-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your general solution contains an unknown constant as expected.</li></ul><br><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.2500000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-2-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>You should have a general solution, which includes an unknown constant. Your answer satisfies the differential equation, but does not contain an unknown constants.</li></ul><br><p></p>]]></text>
+        </falsefeedback>
+      </node>
+    </prt>
+    <deployedseed>75096840</deployedseed>
+    <deployedseed>1622362977</deployedseed>
+    <deployedseed>1472039288</deployedseed>
+    <deployedseed>333345797</deployedseed>
+    <deployedseed>520091463</deployedseed>
+    <deployedseed>1735694414</deployedseed>
+    <deployedseed>1033445985</deployedseed>
+    <deployedseed>1644639675</deployedseed>
+    <deployedseed>1837611614</deployedseed>
+    <deployedseed>1713027738</deployedseed>
+    <qtest>
+      <testcase>1</testcase>
+      <testinput>
+        <name>ans1</name>
+        <value>ta</value>
+      </testinput>
+      <expected>
+        <name>prt1</name>
+        <expectedscore>1.0000000</expectedscore>
+        <expectedpenalty>0.0000000</expectedpenalty>
+        <expectedanswernote>prt1-2-T</expectedanswernote>
+      </expected>
+    </qtest>
+  </question>
+
+<!-- question: 12815  -->
+  <question type="stack">
+    <name>
+      <text>1st order ODE -- Linear IVP</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<div class="myaccessible"><p></p>
+<p>Solve the following first order differential equation for \( x(t) \):</p>
+<p>\[ {@ ff @} \]</p>
+<p>\( x(t) = \)[[input:ans1]] [[validation:ans1]]</p>
+<p><br></p>
+<p>If&nbsp;\(x({@ initvalt @})={@initvalx@}\), find the specific solution to the differential equation.</p>
+<p>\( x(t) =\)[[input:ans2]] [[validation:ans2]]</p>
+  <p></p></div>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text><![CDATA[<div class="myaccessible"><p>This is a linear differential&nbsp;equation. To solve the first part of this&nbsp;question, you should first write the ODE in the form \[\frac{dx}{dt} + p(t)x = q(t).\] You then need to find the integrating factor which is given by \[I(t) = e^{\int p(t)\
+    dt}.\] In terms of this integrating factor, the solution to the ODE is then given by \[x(t) = \frac{1}{I(t)}\int I(t)\cdot q(t)\ dt.\]Don't forget that you need to add a constant of integration.</p>
+<p>To solve the second part of this&nbsp;question, you need to use the initial conditions to find the value of the constant of integration from the first part of the&nbsp;question.</p></div>]]></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.1000000</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <stackversion>
+      <text>2018080600</text>
+    </stackversion>
+    <questionvariables>
+      <text><![CDATA[r(x):=rand_with_prohib(-x,x,[0]);
+randconst:r(5);
+r2:r(5);
+tinv:1/t;
+lindenomwithconst: 1/(t+randconst);
+trigp:[-tan(t),cot(t)];
+randrationallin:(r(5)*t+r(5));
+randrationalp:diff(randrationallin,t)/randrationallin;
+
+randlinear:r2*t+randconst;
+gaussian:%e^(randconst*t^2);
+simplebyparts:[r2*sin(randconst*t),r2*cos(randconst*t),r2*%e^(randconst*t)];
+
+pqpairs:append([[tinv,gaussian],[randlinear,r2*t*%e^(-randconst*t)],[randlinear,randconst*%e^(-r2*t^2/2+r(3)*t+r(4))],[randrationalp,randlinear]],maplist(lambda([x],[lindenomwithconst,x]),simplebyparts),maplist(lambda([x],[x,randlinear]),trigp));
+[p,q]:rand(pqpairs);
+
+initvalt:if p=1/t then 1 else (if p = cot(t) then %pi/2 else 0);
+initvalx:r(10);
+
+/* NB */
+logabs:false;
+
+/* This isn't pretty, but I couldn't find a way to get maxima to display the equations the way I wanted without doing this */
+denp: denom(p);
+f0:x1 + p*x0 = q;
+f1:x1 + p*x0 - q = 0;
+f2:x1 = q - p*x0;
+f3:x1 - q = - p*x0;
+f4:ev(trigsimp(denp*f0),nouns,fullratsimp);
+f5:ev(trigsimp(denp*f1),nouns,fullratsimp);
+f6:ev(trigsimp(denp*f2),nouns,fullratsimp);
+f7:ev(trigsimp(denp*f3),nouns,fullratsimp);
+
+/* ff is the equation to be displayed in LaTeX, with derivatives represented as primes, f is the internal maxima expression */
+ff:rand([f0,f1,f2,f3,f4,f5,f6,f7]);
+f:at(ff,[x1='diff(x(t),t,1),x0=x(t)]);
+
+texput(x1,"x^{\\prime}(t)");
+texput(x0,"x(t)");
+
+IF:%e^(integrate(p,t));
+ta:ev((integrate(IF*q,t)+C)/IF,nouns,fullratsimp);
+
+sol:solve(ev(ta,t=initvalt)=initvalx,[C]);
+ta2:at(ta,sol[1]);]]></text>
+    </questionvariables>
+    <specificfeedback format="html">
+      <text><![CDATA[<div class="myaccessible"><p><b>Feedback for part 1:&nbsp;</b></p>[[feedback:prt1]]
+<p></p>
+<p><b>Feedback for part 2:&nbsp;</b></p>
+<p>[[feedback:IVP]]<br></p>
+<p></p>
+  <p></p></div>]]></text>
+    </specificfeedback>
+    <questionnote>
+      <text>{@ta@}</text>
+    </questionnote>
+    <questionsimplify>1</questionsimplify>
+    <assumepositive>0</assumepositive>
+    <assumereal>0</assumereal>
+    <prtcorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:green;"><i class="fa fa-check"></i></span> Correct answer, well done.]]></text>
+    </prtcorrect>
+    <prtpartiallycorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:orange;"><i class="fa fa-adjust"></i></span> Your answer is partially correct.]]></text>
+    </prtpartiallycorrect>
+    <prtincorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:red;"><i class="fa fa-times"></i></span> Incorrect answer.]]></text>
+    </prtincorrect>
+    <multiplicationsign>none</multiplicationsign>
+    <sqrtsign>1</sqrtsign>
+    <complexno>i</complexno>
+    <inversetrig>cos-1</inversetrig>
+    <matrixparens>[</matrixparens>
+    <variantsselectionseed></variantsselectionseed>
+    <input>
+      <name>ans1</name>
+      <type>algebraic</type>
+      <tans>ta</tans>
+      <boxsize>30</boxsize>
+      <strictsyntax>1</strictsyntax>
+      <insertstars>0</insertstars>
+      <syntaxhint></syntaxhint>
+      <syntaxattribute>0</syntaxattribute>
+      <forbidwords>[[BASIC-ALGEBRA]],[[BASIC-CALCULUS]]</forbidwords>
+      <allowwords></allowwords>
+      <forbidfloat>1</forbidfloat>
+      <requirelowestterms>0</requirelowestterms>
+      <checkanswertype>0</checkanswertype>
+      <mustverify>1</mustverify>
+      <showvalidation>1</showvalidation>
+      <options></options>
+    </input>
+    <input>
+      <name>ans2</name>
+      <type>algebraic</type>
+      <tans>ta2</tans>
+      <boxsize>30</boxsize>
+      <strictsyntax>1</strictsyntax>
+      <insertstars>0</insertstars>
+      <syntaxhint></syntaxhint>
+      <syntaxattribute>0</syntaxattribute>
+      <forbidwords>[[BASIC-ALGEBRA]],[[BASIC-CALCULUS]]</forbidwords>
+      <allowwords></allowwords>
+      <forbidfloat>1</forbidfloat>
+      <requirelowestterms>0</requirelowestterms>
+      <checkanswertype>0</checkanswertype>
+      <mustverify>1</mustverify>
+      <showvalidation>1</showvalidation>
+      <options></options>
+    </input>
+    <prt>
+      <name>IVP</name>
+      <value>1.0000000</value>
+      <autosimplify>1</autosimplify>
+      <feedbackvariables>
+        <text>isIVPsol:is(trigsimp(ev(f,x(t):ans2,nouns,fullratsimp)));
+containsconstIVS:is(equal(length(delete(t,listofvars(ans2))),1));
+lefthandside:ev('diff(x(t),t,1) + p*x(t),x(t)=ans1,nouns,fullratsimp);</text>
+      </feedbackvariables>
+      <node>
+        <name>0</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>containsconstIVS</sans>
+        <tans>false</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>1</truenextnode>
+        <trueanswernote>IVP-1-T</trueanswernote>
+        <truefeedback format="html">
+          <text></text>
+        </truefeedback>
+        <falsescoremode>=</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>1</falsenextnode>
+        <falseanswernote>IVP-1-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p>
+<ul>
+    <li>Your solution to the initial value problem should not contain any unknown constants.</li>
+</ul><br>
+<p></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>1</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>isIVPsol</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>+</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>2</truenextnode>
+        <trueanswernote>IVP-2-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p><ul><li><span style="font-size: 0.9375rem;">Your answer satisfies the differential equation.</span><br></li></ul><br></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>IVP-2-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p><ul><li>The differential&nbsp;equation can be rearranged to give \[ {@ f0 @}, \] which is the canonical form for a linear differential equation. If we substitute your solution for \( x(t) \) into the left-hand side of this equation, we get {@ lefthandside @}, which is not equal to {@ q @}, hence your solution is wrong.&nbsp;</li></ul><br></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>2</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>at(ans2,t=initvalt)</sans>
+        <tans>initvalx</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>1.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>-1</truenextnode>
+        <trueanswernote>IVP-3-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p><ul><li>Your solution satisfies the initial conditions.</li></ul><br></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>IVP-3-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p><ul><li><dfn><span style="font-style: normal;">The value of</span>&nbsp;</dfn>your constant is wrong: substituting \(t= {@ initvalt @} \) into your answer gives</li></ul><p></p><p>\[x( {@ initvalt @})={@at(ans2,t=initvalt)@},\]</p><p>whereas we require \(x( {@ initvalt @})&nbsp;= {@ initvalx @}\).</p><br></p>]]></text>
+        </falsefeedback>
+      </node>
+    </prt>
+    <prt>
+      <name>prt1</name>
+      <value>1.0000000</value>
+      <autosimplify>1</autosimplify>
+      <feedbackvariables>
+        <text>issol:is(trigsimp(ev(f,x(t):ans1,nouns,fullratsimp)));
+lefthandside:ev('diff(x(t),t,1) + p*x(t),x(t)=ans1,nouns,fullratsimp);
+containsconst:is(equal(length(delete(t,listofvars(ans1))),1));</text>
+      </feedbackvariables>
+      <node>
+        <name>0</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>issol</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>1.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>1</truenextnode>
+        <trueanswernote>prt1-1-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your answer satisfies the differential equation.</li></ul><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>=</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-1-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>The differential&nbsp;equation can be rearranged to give \[ {@ f0 @}, \] which is the canonical form for a linear differential equation. If we substitute your solution for \( x(t) \) into the left-hand side of this equation, we get {@ lefthandside @}, which is not equal to {@ q @}, hence your solution is wrong.&nbsp;</li></ul><p></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>1</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>containsconst</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>+</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>-1</truenextnode>
+        <trueanswernote>prt1-2-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your general solution contains an unknown constant as expected.</li></ul><br><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.2500000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-2-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>You should have a general solution, which includes an unknown constant. Your answer satisfies the differential equation, but does not contain an unknown constants.</li></ul><br><p></p>]]></text>
+        </falsefeedback>
+      </node>
+    </prt>
+    <qtest>
+      <testcase>1</testcase>
+      <testinput>
+        <name>ans1</name>
+        <value>ta</value>
+      </testinput>
+      <expected>
+        <name>prt1</name>
+        <expectedscore>1.0000000</expectedscore>
+        <expectedpenalty>0.0000000</expectedpenalty>
+        <expectedanswernote>prt1-2-T</expectedanswernote>
+      </expected>
+    </qtest>
+  </question>
+
+<!-- question: 12817  -->
+  <question type="stack">
+    <name>
+      <text>1st order ODE -- Separable Explicit</text>
+    </name>
+    <questiontext format="html">
+      <text><![CDATA[<div class="myaccessible"><p></p>
+<p>Solve the following first order differential equation for \( x(t) \){@rootprobstring@}:</p>
+<p>\[ {@ ff @} \]</p>
+  <p>\( x(t) = \)[[input:ans1]] [[validation:ans1]]</p></div>]]></text>
+    </questiontext>
+    <generalfeedback format="html">
+      <text><![CDATA[<div class="myaccessible"><p>This is a separable differential&nbsp;equation. To solve this&nbsp;question, you should write the ODE in the form \[X(x)\ dx = T(t)\ dt,\] and then integrate both sides of the equation. Don't forget that you need to add a constant of integration. You
+    have been asked for the explicit form of the solution, so you need to rearrange the resulting&nbsp;equation in order to isolate \(x(t)\).</p></div>]]></text>
+    </generalfeedback>
+    <defaultgrade>1.0000000</defaultgrade>
+    <penalty>0.1000000</penalty>
+    <hidden>0</hidden>
+    <idnumber></idnumber>
+    <stackversion>
+      <text>2018080600</text>
+    </stackversion>
+    <questionvariables>
+      <text><![CDATA[r(x):=rand_with_prohib(-x,x,[0]);
+randconst:r(5);
+r2:r(5);
+r3:rand_with_step(-3,-1,1);
+rpos:rand_with_step(1,5,1);
+tinv:1/t;
+
+randlinear(var):=randconst*var+r(5);
+randlinear2(var):=(signum(randconst)*signum(r2))*r2*var+r(5);
+randlinearstrict(var):=(r2*var);
+gaussian(var):=%e^(rpos*var^2);
+lindenomwithconst(var):= 1/(rand_with_step(1,3,1)*var+rand_with_step(0,5,1));
+quaddenomwithconst(var):= var/(rand_with_step(1,3,1)*var^2+rand_with_step(0,5,1));
+randmonomial(var):=-var^r3;
+randmonomial2(var):=(r4:rand_with_prohib(-3,1,[0]),if is(equal(r3,3)) and (is(equal(r4,1)) or is(equal(r4,-1))) then (var^r3) else (-var^r3));
+randexponential(var):=(r4:r(5),signum(r4)*signum(randconst)*%e^(r4*var));
+randpartialfrac(var):=(alp:r(5),r:r2,alp/(var^2-(2*r+1)*var+(r^2+r)));
+
+pqpairs:[[lindenomwithconst(x),lindenomwithconst(t)],[randmonomial(x),randmonomial(t)],[randexponential(x),randlinear(t)],[randlinear(x),randlinear2(t)],[lindenomwithconst(x),randlinearstrict(t)],[quaddenomwithconst(x),randlinearstrict(t)],[x*gaussian(x),signum(r2)*randlinearstrict(t)],[1/(x),randpartialfrac(t)]];
+[p,q]:rand(pqpairs);
+
+/* NB */
+logabs:false;
+logconcoeffp:'logconfun;
+logconfun(m):=integerp(m) or ratnump(m);
+
+/* This isn't pretty, but I couldn't find a way to get maxima to display the equations the way I wanted without doing this */
+denp: denom(p);
+f0:p*x1=q;
+f1:p*x1 - q = 0;
+f2:x1 = (q/p);
+f3:x1 - (q/p) = 0;
+
+/* ff is the equation to be displayed in LaTeX, with derivatives represented as primes, f is the internal maxima expression */
+ff:rand([f0,f1,f2,f3]);
+
+f:at(ff,[x1='diff(x,t,1)]);
+
+texput(x1,"x^{\\prime}");
+
+rootproblem:not freeof(x^2,integrate(p,x));
+rootprobstring:if rootproblem then ", where \\(x(t)>0\\)" else "";
+ta:rhs(ev(last(solve(integrate(p,x)=integrate(q,t)+c,x)),fullratsimp,nouns,logsimp,logcontract,factor));]]></text>
+    </questionvariables>
+    <specificfeedback format="html">
+      <text><![CDATA[<div class="myaccessible">[[feedback:prt1]]</div>]]></text>
+    </specificfeedback>
+    <questionnote>
+      <text>{@p@}, {@ta@}, {@rootproblem@}</text>
+    </questionnote>
+    <questionsimplify>1</questionsimplify>
+    <assumepositive>0</assumepositive>
+    <assumereal>0</assumereal>
+    <prtcorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:green;"><i class="fa fa-check"></i></span> Correct answer, well done.]]></text>
+    </prtcorrect>
+    <prtpartiallycorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:orange;"><i class="fa fa-adjust"></i></span> Your answer is partially correct.]]></text>
+    </prtpartiallycorrect>
+    <prtincorrect format="html">
+      <text><![CDATA[<span style="font-size: 1.5em; color:red;"><i class="fa fa-times"></i></span> Incorrect answer.]]></text>
+    </prtincorrect>
+    <multiplicationsign>none</multiplicationsign>
+    <sqrtsign>1</sqrtsign>
+    <complexno>i</complexno>
+    <inversetrig>cos-1</inversetrig>
+    <matrixparens>[</matrixparens>
+    <variantsselectionseed></variantsselectionseed>
+    <input>
+      <name>ans1</name>
+      <type>algebraic</type>
+      <tans>ta</tans>
+      <boxsize>30</boxsize>
+      <strictsyntax>1</strictsyntax>
+      <insertstars>0</insertstars>
+      <syntaxhint></syntaxhint>
+      <syntaxattribute>0</syntaxattribute>
+      <forbidwords>[[BASIC-ALGEBRA]],[[BASIC-CALCULUS]]</forbidwords>
+      <allowwords></allowwords>
+      <forbidfloat>1</forbidfloat>
+      <requirelowestterms>0</requirelowestterms>
+      <checkanswertype>0</checkanswertype>
+      <mustverify>1</mustverify>
+      <showvalidation>1</showvalidation>
+      <options></options>
+    </input>
+    <prt>
+      <name>prt1</name>
+      <value>1.0000000</value>
+      <autosimplify>1</autosimplify>
+      <feedbackvariables>
+        <text>issol:is(trigsimp(ev(f,x:ans1,nouns,fullratsimp,factor)));
+lefthandside:ev('diff(x(t),t,1)*p,x(t)=ans1,nouns,fullratsimp);
+containsconst:is(equal(length(delete(t,listofvars(ans1))),1));</text>
+      </feedbackvariables>
+      <node>
+        <name>0</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>issol</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>=</truescoremode>
+        <truescore>1.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>1</truenextnode>
+        <trueanswernote>prt1-1-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your answer satisfies the differential equation.</li></ul><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>=</falsescoremode>
+        <falsescore>0.0000000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-1-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>The differential&nbsp;equation can be rearranged to give \[ {@ f0 @}, \] which is the canonical form for a seperable differential equation. If we substitute your solution for \( x(t) \) into the left-hand side of this equation, we get {@ lefthandside @}, which is not equal to {@ q @}, hence your solution is wrong.&nbsp;</li></ul><p></p>]]></text>
+        </falsefeedback>
+      </node>
+      <node>
+        <name>1</name>
+        <answertest>AlgEquiv</answertest>
+        <sans>containsconst</sans>
+        <tans>true</tans>
+        <testoptions></testoptions>
+        <quiet>0</quiet>
+        <truescoremode>+</truescoremode>
+        <truescore>0.0000000</truescore>
+        <truepenalty></truepenalty>
+        <truenextnode>-1</truenextnode>
+        <trueanswernote>prt1-2-T</trueanswernote>
+        <truefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>Your general solution contains an unknown constant as expected.</li></ul><br><p></p>]]></text>
+        </truefeedback>
+        <falsescoremode>-</falsescoremode>
+        <falsescore>0.2500000</falsescore>
+        <falsepenalty></falsepenalty>
+        <falsenextnode>-1</falsenextnode>
+        <falseanswernote>prt1-2-F</falseanswernote>
+        <falsefeedback format="html">
+          <text><![CDATA[<p></p><ul><li>You should have a general solution, which includes an unknown constant. Your answer satisfies the differential equation, but does not contain an unknown constants.</li></ul><br><p></p>]]></text>
+        </falsefeedback>
+      </node>
+    </prt>
+    <deployedseed>125822124</deployedseed>
+    <deployedseed>358223142</deployedseed>
+    <deployedseed>1205020661</deployedseed>
+    <deployedseed>456656254</deployedseed>
+    <deployedseed>1257444250</deployedseed>
+    <deployedseed>1404526533</deployedseed>
+    <deployedseed>2145302453</deployedseed>
+    <deployedseed>1226781453</deployedseed>
+    <deployedseed>581754497</deployedseed>
+    <deployedseed>475510847</deployedseed>
+    <qtest>
+      <testcase>1</testcase>
+      <testinput>
+        <name>ans1</name>
+        <value>ta</value>
+      </testinput>
+      <expected>
+        <name>prt1</name>
+        <expectedscore>1.0000000</expectedscore>
+        <expectedpenalty>0.0000000</expectedpenalty>
+        <expectedanswernote>prt1-2-T</expectedanswernote>
+      </expected>
+    </qtest>
+  </question>
+
+</quiz>

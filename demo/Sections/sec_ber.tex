@@ -1,0 +1,16 @@
+\subsection{Bernoulli equations}
+A \textbf{Bernoulli equation} is a nonlinear ODE of the form \[y'+p(x)y=q(x)y^n\] where $n\ne 0,1,$ otherwise the equation is simply linear.\\
+
+These ODEs can be solved by first performing the substitution $v=y^{1-n}$, which converts the equation to a linear ODE for $v(x)$.\\
+
+\begin{example}
+    Solve $$y'-\frac{2y}{x}=-x^2y^2.$$
+
+    This is a Bernoulli equation with $n=2$ hence put $v=\frac{1}{y},$ \ which gives $v'=-\frac{y'}{y^2}.$
+
+    Dividing the ODE by $y^2$ yields \[\frac{y'}{y^2}-\frac{2}{xy}=-x^2\] which in terms of $v$ is \[-v'-\frac{2v}{x}=-x^2\] \ ie \ the linear equation \[v'+\frac{2}{x}v=x^2.\] We solve this with an integrating factor $I=\exp\bigg(\int \frac{2}{x}\, dx\bigg)=\exp(2\log x)=x^2$ as
+    \[v=\frac{1}{x^2}\int x^2 x^2\, dx =\frac{1}{x^2}\bigg(\frac{1}{5}x^5+\frac{c}{5}\bigg).\]
+    So finally \[y=\frac{1}{v}=\frac{5x^2}{x^5+c}.\]
+\end{example}
+
+\newpage

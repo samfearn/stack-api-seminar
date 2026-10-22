@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Sam Fearn Original notes produced by Paul Sutcliffe" />
+  <title>Calculus I Michaelmas Term</title>
+  <!--<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>-->
+  <!-- <link rel="stylesheet" href="https://samfearn.github.io/latex.min.css" /> -->
+  <link rel="stylesheet" href="template/style/latex.css" />
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"
+  type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <script type="text/x-mathjax-config">
+  	MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "ams"} } });
+  	// I need to wait until MathJax has finished before running the numbering script
+  	MathJax.Hub.Register.StartupHook("End",function(){doNumbering()});
+  </script>
+<script src="template/stackjsvle.js"></script>
+<script src="template/stackapicalls.js" type="text/javascript"></script>
+<script src="template/desmosapicalls.js" type="text/javascript"></script>
+<script src="https://www.desmos.com/api/v1.10/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<script type="text/javascript">
+    function docHasLoaded() {
+         stackSetup([ 'questions/EdDemo.xml','questions/ODEProof.xml' ]); 
+         desmosSetup(); 
+    }
+</script>
+</head>
+<body  onload="docHasLoaded()" >
+<header id="title-block-header">
+<h1 class="title"><p>Calculus I<br />
+Michaelmas Term</p></h1>
+<p class="author"><p>Sam Fearn<br />
+Original notes produced by Paul Sutcliffe</p></p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#first-order-differential-equations"
+id="toc-first-order-differential-equations"><span
+class="toc-section-number">1</span> First order differential
+equations</a>
+<ul>
+<li><a href="#first-order-separable-odes"
+id="toc-first-order-separable-odes"><span
+class="toc-section-number">1.1</span> First order separable
+ODEs</a></li>
+<li><a href="#first-order-homogeneous-odes"
+id="toc-first-order-homogeneous-odes"><span
+class="toc-section-number">1.2</span> First order homogeneous
+ODEs</a></li>
+<li><a href="#first-order-linear-odes"
+id="toc-first-order-linear-odes"><span
+class="toc-section-number">1.3</span> First order linear ODEs</a></li>
+<li><a href="#first-order-exact-odes"
+id="toc-first-order-exact-odes"><span
+class="toc-section-number">1.4</span> First order exact ODEs</a></li>
+<li><a href="#bernoulli-equations" id="toc-bernoulli-equations"><span
+class="toc-section-number">1.5</span> Bernoulli equations</a></li>
+<li><a href="#summary-first-order-odes"
+id="toc-summary-first-order-odes"><span
+class="toc-section-number">1.6</span> Summary: First order ODEs</a></li>
+</ul></li>
+</ul>
+</nav>
+<section id="first-order-differential-equations" class="level1"
+data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> First
+order differential equations</h1>
+<section id="first-order-separable-odes" class="level2"
+data-number="1.1">
+<h2 data-number="1.1"><span class="header-section-number">1.1</span>
+First order separable ODEs</h2>
+<p>A <strong>differential equation</strong> is an equation that relates
+an unknown function (the dependent variable) to one or more of its
+derivatives. The <strong>order</strong> of a differential equation is
+the order of the highest derivative that appears in the equation. A
+function that satisfies the differential equation is called a
+<strong>solution</strong> and the process of finding a solution is
+called <strong>solving</strong> the differential equation. If the
+dependent variable depends on only a single unknown variable (the
+independent variable) then the differential equation is called an
+<strong>ordinary differential equation</strong> (ODE). We shall deal
+only with ODEs.</p>
+<p>Differential equations for functions with several independent
+variables and involving partial derivatives are called <strong>partial
+differential equations</strong> (PDEs). These are generally much harder
+to solve and wont be discussed in this course.<br />
+We shall usually discuss ODEs using <span
+class="math inline">\(y\)</span> to denote the dependent variable and
+<span class="math inline">\(x\)</span> for the independent variable, so
+solving the ODE involves finding <span
+class="math inline">\(y(x).\)</span><br />
+The generic first order ODE may be written in the form</p>
+<p><span class="math display">\[\begin{equation} \label{eq:GFOO}
+    \frac{dy}{dx}=f(x,y). \tag{$\star$} \end{equation}\]</span></p>
+<p>Generically this will have a one-parameter family of solutions ie.
+the <strong>general solution</strong> will contain an arbitrary
+constant. Assigning a particular value to this constant gives a
+<strong>particular solution</strong>. A particular solution will be
+singled out by the assignment of an <strong>initial value</strong> ie.
+requiring <span class="math inline">\(y(x_0)=y_0,\)</span> for given
+<span class="math inline">\(x_0\)</span> and <span
+class="math inline">\(y_0.\)</span> In this case the ODE is called an
+<strong>initial value problem</strong> (IVP). To solve an IVP, first
+solve the ODE to find the general solution and then determine the value
+of the constant so that the IVP is also satisfied.<br />
+Depending upon the form of the function <span
+class="math inline">\(f(x,y)\)</span> there are various methods that can
+be used to solve certain kinds of ODEs. We shall discuss these in
+turn.<br />
+The ODE <span class="math inline">\(\eqref{eq:GFOO}\)</span> is
+<strong>separable</strong> if <span
+class="math inline">\(f(x,y)=X(x)Y(y).\)</span></p>
+<p>It can be solved by direct integration as <span
+class="math display">\[\int \frac{1}{Y(y)}\,dy=\int
+X(x)\,dx.\]</span></p>
+<div class="container-fluid que stack" data-qid="Separable ODE Proof">
+
+</div>
+<div class="example">
+<p><strong>Example 1</strong>. Solve the IVP <span
+class="math display">\[\frac{dy}{dx}=xe^{y-x} \quad
+    \text{with} \quad y(0)=0.\]</span> <span
+class="math display">\[\begin{gathered}
+            y&#39;=xe^{-x}e^y, \quad \int e^{-y}\,dy=\int xe^{-x}\,dx,
+\quad e^{-y}=-xe^{-x}+\int e^{-x}\,dx=-xe^{-x}-e^{-x}+c \\
+            y=-\log(e^{-x}(1+x)-c). \quad y(0)=0=\log(1-c), \quad
+\text{so}\quad c=0. \\
+            y=-\log(e^{-x}(1+x))=x-\log(1+x).
+        \end{gathered}\]</span></p>
+</div>
+<div id="calculator" class="desmosinteractive">
+
+</div>
+<div class="example">
+<p><strong>Example 2</strong>. Solve <span
+class="math display">\[y&#39;=\frac{2x(1+y^2)}{(1+x^2)^2}.\]</span>
+<span class="math display">\[\int \frac{1}{1+y^2}\,dy=\int
+\frac{2x}{(1+x^2)^2}\,dx, \quad \tan^{-1}y=-\frac{1}{1+x^2}-c, \quad
+y=-\tan\bigg(\frac{1}{1+x^2}+c\bigg).\]</span></p>
+</div>
+<div class="example">
+<p><strong>Example 3</strong>. Solve the IVP <span
+class="math display">\[y&#39;=\frac{x^2y-y}{1+y}, \quad y(3)=1.\]</span>
+<span class="math display">\[\begin{gathered}
+            \int \frac{1+y}{y}\,dy=\int (x^2-1)\, dx, \quad
+y+\log|y|=\frac{x^3}{3}-x+c.\quad \text{Put}\ x=3\ \text{and} \ y=1 \\
+            1=6+c, \quad c=-5, \quad \text{hence} \quad
+y+\log|y|=\frac{x^3}{3}-x-5.
+        \end{gathered}\]</span></p>
+<p>In this case the final solution can only be written in implicit form
+ie. it cannot be written in an explicit form <span
+class="math inline">\(y=...\)</span> where the right hand side is a
+function of <span class="math inline">\(x\)</span> only.</p>
+</div>
+<div class="container-fluid que stack"
+data-qid="1st order ODE -- Separable Explicit">
+
+</div>
+</section>
+<section id="first-order-homogeneous-odes" class="level2"
+data-number="1.2">
+<h2 data-number="1.2"><span class="header-section-number">1.2</span>
+First order homogeneous ODEs</h2>
+<p>The ODE <span class="math inline">\(\eqref{eq:GFOO}\)</span> is
+<strong>homogeneous</strong> if <span
+class="math inline">\(f(tx,ty)=f(x,y)\ \ \forall \
+t\in\mathbb{R}.\)</span><br />
+In this case the substitution <span class="math inline">\(y=xv\)</span>
+produces a separable ODE for <span
+class="math inline">\(v(x).\)</span><br />
+</p>
+<div class="example">
+<p><strong>Example 4</strong>. Solve <span
+class="math display">\[y&#39;=\frac{y^2-x^2}{xy}.\]</span> We have <span
+class="math display">\[f(tx,ty)=\frac{t^2y^2-t^2x^2}{txty}=\frac{y^2-x^2}{xy}=f(x,y)
+\quad \text{and hence the ODE is homogeneous.}\]</span> Put <span
+class="math inline">\(y=xv\)</span> then <span
+class="math inline">\(y&#39;=v+xv&#39;\)</span>, and the ODE becomes
+<span class="math display">\[\begin{gathered}
+            v+xv&#39;=\frac{x^2v^2-x^2}{x^2v}=v-\frac{1}{v}, \quad
+v&#39;=-\frac{1}{xv}, \quad \int v\,dv=\int -\frac{1}{x}\,dx, \quad
+\frac{v^2}{2}=-\log|x|+\log c, \\
+            v=\pm \sqrt{2\log\bigg|\frac{c}{x}\bigg|}, \quad y=xv=\pm
+x\sqrt{2\log\bigg|\frac{c}{x}\bigg|}.
+        \end{gathered}\]</span></p>
+</div>
+</section>
+<section id="first-order-linear-odes" class="level2" data-number="1.3">
+<h2 data-number="1.3"><span class="header-section-number">1.3</span>
+First order linear ODEs</h2>
+<p>The ODE <span class="math inline">\(\eqref{eq:GFOO}\)</span> is
+<strong>linear</strong> if <span
+class="math inline">\(f(x,y)=-p(x)y+q(x),\)</span> in which case we can
+write the standard form of a linear first order ODE as <span
+class="math display">\[y&#39;+py=q\]</span> where <span
+class="math inline">\(p\)</span> and <span
+class="math inline">\(q\)</span> can be any functions of <span
+class="math inline">\(x\)</span>.</p>
+<p>In this case the ODE can be solved in terms of the
+<strong>integrating factor</strong> <span
+class="math display">\[I(x)=e^{\int p(x)\,dx}.\]</span> The solution is
+given by <span class="math display">\[y=\frac{1}{I(x)}\int I(x)q(x)\,
+dx.\]</span> Proof: We need to show that <span
+class="math inline">\(y\)</span> satisfies the ODE <span
+class="math inline">\(y&#39;+py=q.\)</span><br />
+The first step is to observe that <span
+class="math inline">\(I&#39;=e^{\int p\,dx}p=Ip.\)</span><br />
+With <span class="math inline">\(y=\frac{1}{I}\int Iq\,dx\)</span> we
+have <span class="math display">\[y&#39;=-\frac{I&#39;}{I^2}\int
+Iq\,dx+\frac{1}{I}Iq
+=-\frac{I&#39;}{I}y+q=-\frac{Ip}{I}y+q=-py+q,\]</span> as
+required.<br />
+</p>
+<div class="example">
+<p><strong>Example 5</strong>. Solve the IVP <span
+class="math display">\[y&#39;-\frac{2}{x}y=3x^3, \ \
+y(-1)=2.\]</span></p>
+<p>In the above notation <span
+class="math inline">\(p=-\frac{2}{x}\)</span> and <span
+class="math inline">\(q=3x^3.\)</span> <span
+class="math display">\[\begin{gathered}
+            I=\exp\bigg(\int p\,dx\bigg)=\exp\bigg(\int
+-\frac{2}{x}\,dx\bigg) =\exp\bigg(-2\log x\bigg)=\frac{1}{x^2}. \\
+            y=\frac{1}{I}\int Iq\,dx=x^2\int \frac{1}{x^2}3x^3\,dx
+=x^2\int 3x\,dx=x^2\bigg(\frac{3}{2}x^2+c\bigg) =\frac{3}{2}x^4+cx^2.
+        \end{gathered}\]</span></p>
+<p>Using <span class="math inline">\(y(-1)=2\)</span> we have <span
+class="math inline">\(2=\frac{3}{2}+c\)</span>, hence <span
+class="math inline">\(c=\frac{1}{2}\)</span>, giving <span
+class="math inline">\(y=\frac{3}{2}x^4+\frac{1}{2}x^2.\)</span></p>
+</div>
+</section>
+<section id="first-order-exact-odes" class="level2" data-number="1.4">
+<h2 data-number="1.4"><span class="header-section-number">1.4</span>
+First order exact ODEs</h2>
+<p>An alternative form in which to write a first order ODE is <span
+class="math display">\[\begin{equation} \label{eq:AFOO}
+    M(x,y)\,dx+N(x,y)\,dy=0. \tag{$\star\star$}
+\end{equation}\]</span></p>
+<p>Rearranging gives <span
+class="math display">\[\frac{dy}{dx}=-\frac{M(x,y)}{N(x,y)},\]</span> so
+this agrees with the form <span
+class="math inline">\(\eqref{eq:GFOO}\)</span> with <span
+class="math inline">\(f(x,y)=\frac{M(x,y)}{N(x,y)}\)</span>.</p>
+<p>Note that a given <span class="math inline">\(f(x,y)\)</span> does
+not correspond to a unique choice of <span
+class="math inline">\(M(x,y)\)</span> and <span
+class="math inline">\(N(x,y)\)</span> as only their ratio determines the
+ODE, so there is a freedom to multiply both <span
+class="math inline">\(M\)</span> and <span
+class="math inline">\(N\)</span> by the same arbitrary function.<br />
+For any function <span class="math inline">\(g(x,y)\)</span> the
+<strong>total differential</strong> <span
+class="math inline">\(dg\)</span> is defined to be <span
+class="math display">\[dg=\frac{\partial g}{\partial
+x}\,dx+\frac{\partial g}{\partial y}\,dy.\]</span> You may think of
+<span class="math inline">\(dg\)</span> as the small change in the
+function <span class="math inline">\(g\)</span> that arises in moving
+from the point <span class="math inline">\((x,y)\)</span> to <span
+class="math inline">\((x+dx,y+dy)\)</span> where <span
+class="math inline">\(dx\)</span> and <span
+class="math inline">\(dy\)</span> are both small. In particular, if
+<span class="math inline">\(dg\)</span> is identically zero then <span
+class="math inline">\(g\)</span> is a constant.<br />
+The ODE <span class="math inline">\(\eqref{eq:AFOO}\)</span> is called
+<strong>exact</strong> if there exists a function <span
+class="math inline">\(g(x,y)\)</span> such that the left hand side of
+<span class="math inline">\(\eqref{eq:AFOO}\)</span> is equal to the
+total derivative <span class="math inline">\(dg\)</span> ie. <span
+class="math display">\[M=\frac{\partial g}{\partial x} \quad \text{and}
+\quad N=\frac{\partial g}{\partial y}.\]</span> In this case the ODE
+says that <span class="math inline">\(dg=0\)</span> hence <span
+class="math inline">\(g=constant\)</span> and this yields the solution
+of the ODE.<br />
+The equality of the mixed partial derivatives <span
+class="math inline">\(\frac{\partial^2 g}{\partial y\partial x}=
+\frac{\partial^2 g}{\partial x\partial y}\)</span> requires that an
+exact equation satisfies <span class="math inline">\(\frac{\partial
+M}{\partial y}=\frac{\partial N}{\partial x}\)</span>.</p>
+<p>This results in the following <strong>test for exactness</strong>
+<span class="math display">\[\text{The ODE} \quad
+M(x,y)\,dx+N(x,y)\,dy=0 \quad \text{is exact iff} \quad \frac{\partial
+M}{\partial y}=\frac{\partial N}{\partial x}.\]</span></p>
+<div class="example">
+<p><strong>Example 6</strong>. Show that <span
+class="math display">\[(3e^{3x}y+e^x)\,dx+(e^{3x}+1)\,dy=0\]</span> is
+an exact equation, and hence solve it.</p>
+<p>In this example <span class="math inline">\(M=3e^{3x}y+e^x\)</span>
+and <span class="math inline">\(N=e^{3x}+1.\)</span></p>
+<p><span class="math inline">\(\frac{\partial M}{\partial
+y}=3e^{3x}=\frac{\partial N}{\partial x}\)</span> hence this equation is
+exact.</p>
+<p><span class="math display">\[\text{From} \ M=\frac{\partial
+g}{\partial x}\ \text{we have} \ \frac{\partial g}{\partial
+x}=3e^{3x}y+e^x \quad \text{giving } \ g=e^{3x}y+e^x+\phi(y),\]</span>
+where the usual constant of integration is replaced by an arbitrary
+function of integration <span class="math inline">\(\phi(y)\)</span>
+because of the partial differentiation. To determine this function we
+use <span class="math display">\[\begin{gathered}
+            \frac{\partial g}{\partial y}=N, \quad \frac{\partial
+g}{\partial y}=e^{3x}+1=e^{3x}+\phi&#39;, \quad \text{so} \ \phi&#39;=1,
+\ \text{giving} \ \phi=y. \\
+            \text{Finally we have that}\quad
+g=e^{3x}y+e^x+y=\text{constant}=c.
+        \end{gathered}\]</span></p>
+<p>In this case we can write the solution in explicit form <span
+class="math inline">\(y={(c-e^x)}/{(e^{3x}+1)}.\)</span></p>
+<p>As an exercise check that this does indeed solve the starting ODE
+<span class="math display">\[y&#39;=-(3e^{3x}y+e^x)/(e^{3x}+1).\]</span>
+Note that this example is also a linear ODE, so could also have been
+solved using an integrating factor.<br />
+</p>
+</div>
+<p>Consider an ODE <span class="math inline">\(M\,dx+N\,dy=0\)</span>
+that is not exact ie. <span class="math inline">\(\frac{\partial
+M}{\partial y}\ne\frac{\partial N}{\partial x}.\)</span></p>
+<p>By multiplying the ODE by a function <span
+class="math inline">\(I(x,y)\)</span> we can get an equivalent
+representation of the ODE as <span
+class="math inline">\(m\,dx+n\,dy=0\)</span> where <span
+class="math inline">\(m=MI\)</span> and <span
+class="math inline">\(n=NI.\)</span> If this equation is exact ie. <span
+class="math inline">\(\frac{\partial m}{\partial y}=\frac{\partial
+n}{\partial x}\)</span> then <span class="math inline">\(I\)</span> is
+called an <strong>integrating factor</strong> for the original
+ODE.<br />
+</p>
+<div class="example">
+<p><strong>Example 7</strong>. Show that <span
+class="math inline">\(x\)</span> is an integrating factor for <span
+class="math display">\[(3xy-y^2)\,dx+x(x-y)\, dy=0.\]</span></p>
+<p><span class="math inline">\(M=3xy-y^2\)</span>  so  <span
+class="math inline">\(\frac{\partial M}{\partial y}=3x-2y,\)</span> but
+<span class="math inline">\(N=x^2-xy\)</span>  so  <span
+class="math inline">\(\frac{\partial N}{\partial x}=2x-y.\)</span></p>
+<p>Therefore  <span class="math inline">\(\frac{\partial M}{\partial
+y}\ne \frac{\partial N}{\partial x}\)</span> and the ODE is not
+exact.</p>
+<p>However, with the integrating factor <span
+class="math inline">\(I=x\)</span> we get <span
+class="math inline">\(m=MI=3x^2y-y^2x\)</span> and <span
+class="math inline">\(n=NI=x^3-x^2y\)</span> so now <span
+class="math inline">\(\frac{\partial m}{\partial y}=3x^2-2yx=
+\frac{\partial n}{\partial x}\)</span> which is exact.</p>
+<p>We can now solve this exact equation using the above method.</p>
+<p><span class="math inline">\(\frac{\partial g}{\partial
+x}=m=3x^2y-y^2x\)</span>  giving <span
+class="math inline">\(g=x^3y-\frac{1}{2}y^2x^2+\phi(y).\)</span></p>
+<p><span class="math inline">\(\frac{\partial g}{\partial
+y}=n=x^3-x^2y=x^3-x^2y+\phi&#39;\)</span> so  <span
+class="math inline">\(\phi&#39;=0\)</span> and we can take <span
+class="math inline">\(\phi=0.\)</span></p>
+<p>This gives the final solution <span
+class="math inline">\(g=\text{constant}=c\)</span>  ie.  <span
+class="math inline">\(x^3y-\frac{1}{2}y^2x^2=c.\)</span></p>
+</div>
+</section>
+<section id="bernoulli-equations" class="level2" data-number="1.5">
+<h2 data-number="1.5"><span class="header-section-number">1.5</span>
+Bernoulli equations</h2>
+<p>A <strong>Bernoulli equation</strong> is a nonlinear ODE of the form
+<span class="math display">\[y&#39;+p(x)y=q(x)y^n\]</span> where <span
+class="math inline">\(n\ne 0,1,\)</span> otherwise the equation is
+simply linear.<br />
+These ODEs can be solved by first performing the substitution <span
+class="math inline">\(v=y^{1-n}\)</span>, which converts the equation to
+a linear ODE for <span class="math inline">\(v(x)\)</span>.<br />
+</p>
+<div class="example">
+<p><strong>Example 8</strong>. Solve <span
+class="math display">\[y&#39;-\frac{2y}{x}=-x^2y^2.\]</span></p>
+<p>This is a Bernoulli equation with <span
+class="math inline">\(n=2\)</span> hence put <span
+class="math inline">\(v=\frac{1}{y},\)</span>  which gives <span
+class="math inline">\(v&#39;=-\frac{y&#39;}{y^2}.\)</span></p>
+<p>Dividing the ODE by <span class="math inline">\(y^2\)</span> yields
+<span
+class="math display">\[\frac{y&#39;}{y^2}-\frac{2}{xy}=-x^2\]</span>
+which in terms of <span class="math inline">\(v\)</span> is <span
+class="math display">\[-v&#39;-\frac{2v}{x}=-x^2\]</span>  ie  the
+linear equation <span
+class="math display">\[v&#39;+\frac{2}{x}v=x^2.\]</span> We solve this
+with an integrating factor <span class="math inline">\(I=\exp\bigg(\int
+\frac{2}{x}\, dx\bigg)=\exp(2\log x)=x^2\)</span> as <span
+class="math display">\[v=\frac{1}{x^2}\int x^2 x^2\, dx
+=\frac{1}{x^2}\bigg(\frac{1}{5}x^5+\frac{c}{5}\bigg).\]</span> So
+finally <span
+class="math display">\[y=\frac{1}{v}=\frac{5x^2}{x^5+c}.\]</span></p>
+</div>
+</section>
+<section id="summary-first-order-odes" class="level2" data-number="1.6">
+<h2 data-number="1.6"><span class="header-section-number">1.6</span>
+Summary: First order ODEs</h2>
+<p>You should have a good understanding of how to solve the various
+types of first order ODEs we covered. We assume a first order ODE can be
+written in the form <span class="math inline">\(\frac{dy}{dx} =
+f(x,y)\)</span>. Here are some key points:</p>
+<ul>
+<li><p>The <em>general solution</em> to a first order ODE will have 1
+free real parameter which we can call the integration constant. If we
+are given an <em>initial condition</em> determining the value of <span
+class="math inline">\(y\)</span> for some specific value of <span
+class="math inline">\(x\)</span> then we can fix this integration
+constant.</p></li>
+<li><p>Often when solving an ODE we will get an <em>implicit
+solution</em>, i.e. and algebraic expression involving <span
+class="math inline">\(x\)</span> and <span
+class="math inline">\(y\)</span>. If it is reasonably straightforward to
+do so, solve this to write an <em>explicit solution</em>, i.e. an
+explicit expression for <span class="math inline">\(y(x)\)</span> as a
+function of <span class="math inline">\(x\)</span>.</p></li>
+<li><p>If <span class="math inline">\(f(x,y) = X(x)Y(y)\)</span> the ODE
+is <em>separable</em>. Solve by separating the <span
+class="math inline">\(x\)</span> and <span
+class="math inline">\(y\)</span> dependence and integrating: <span
+class="math inline">\(\int \frac{dy}{Y} = \int X dx\)</span>.</p></li>
+<li><p>If <span class="math inline">\(f(tx, ty) = f(x,y)\)</span> for
+all <span class="math inline">\(x, y, t \in \mathbb{R}\)</span> then the
+ODE is <em>first order homogeneous</em>. Solve by substituting <span
+class="math inline">\(v = y/x\)</span> for <span
+class="math inline">\(y\)</span> and the OPE will become separable in
+variables <span class="math inline">\(x\)</span> and <span
+class="math inline">\(v\)</span>. Remember to substitute back after
+solving to give the solution for the original variable <span
+class="math inline">\(y\)</span>.</p></li>
+<li><p>If <span class="math inline">\(f(x,y) = -p(x)y + q(x)\)</span>,
+i.e. if <span class="math inline">\(f(x,y)\)</span> is linear in <span
+class="math inline">\(y\)</span>, we have a <em>linear first order
+ODE</em> which can be written as <span class="math inline">\(y + py&#39;
+= q\)</span>. We can solve by multiplying both sides by an
+<em>integrating factor</em> <span class="math inline">\(I = \exp(\int
+p(x) dx)\)</span> so that the LHS becomes the total derivative <span
+class="math inline">\((Iy)&#39;\)</span> and we then solve by
+integrating the RHS <span class="math inline">\(Iq\)</span>.</p></li>
+<li><p>A <em>Bernoulli equation</em> is a first order ODE of the form
+<span class="math inline">\(y + p(x) y&#39; = q(x) y^n\)</span> with any
+<span class="math inline">\(n \in \mathbb{R}\ \{0, 1\}\)</span> where we
+exclude those values of <span class="math inline">\(n\)</span> for which
+this is just a linear ODE. We solve by dividing both sides by <span
+class="math inline">\(y^n\)</span> and substituting <span
+class="math inline">\(v = y^{1-n}\)</span> which results in a first
+order linear ODE for <span class="math inline">\(v(x)\)</span>.</p></li>
+<li><p>A first order <em>exact ODE</em> is one of the form <span
+class="math inline">\(M(x,y) dx + N(x,y) dy = 0\)</span> with <span
+class="math inline">\(\frac{\partial M}{\partial y} = \frac{\partial
+N}{\partial x}\)</span> which means we can write <span
+class="math inline">\(M = \frac{\partial g}{\partial x}\)</span> and
+<span class="math inline">\(N = \frac{\partial g}{\partial y}\)</span>
+for such function <span class="math inline">\(g(x,y)\)</span>. The ODE
+is then simply <span class="math inline">\(dg = 0\)</span> which means
+that <span class="math inline">\(g(x,y) = c\)</span> for some <span
+class="math inline">\(c \in \mathbb{R}\)</span>. To find <span
+class="math inline">\(g\)</span> either integrate <span
+class="math inline">\(M\)</span> wrt. <span
+class="math inline">\(x\)</span> while treating <span
+class="math inline">\(y\)</span> as a constant or integrate <span
+class="math inline">\(N\)</span> wrt. <span
+class="math inline">\(y\)</span> while treating <span
+class="math inline">\(x\)</span> as a constant. The integration will
+give <span class="math inline">\(g(x,y)\)</span> up to an integration
+‘constant’ which is an arbitrary function of <span
+class="math inline">\(y\)</span> and <span
+class="math inline">\(x\)</span> respectively (since these were treated
+as constants in the integration). Fix this integration ‘constant’ up to
+a real constant by substituting the expression for <span
+class="math inline">\(g\)</span> into the other equation, <span
+class="math inline">\(N = \frac{\partial g}{\partial y}\)</span> or
+<span class="math inline">\(M = \frac{\partial g}{\partial x}\)</span>
+respectively.</p></li>
+<li><p>We can write a first order ODE in the form <span
+class="math inline">\(M(x,y) dx + N(x,y) dy = 0\)</span> in infinitely
+many ways since we can multiply through by any function <span
+class="math inline">\(I(x,y)\)</span>. In general this will not be an
+exact ODE but it can be for specific <em>integrating factors</em> <span
+class="math inline">\(I(x,y)\)</span>. Unfortunately there is no general
+method to finding these integrating factors (unlike the integrating
+factor for linear ODEs). There are some methods which work in some
+cases, but we did not cover that this term, so you just need to know the
+concept.</p></li>
+</ul>
+</section>
+</section>
+<script>
+function doNumbering() {
+	// The syntax to read the structured data from the yaml is horrible, template literals fix the problem but probably aren't widely supported enough. Escaping line breaks is browser dependant. I don't know if there's a better way?
+	// Note that the data from the yaml file is manipulated into an array, and then parsed back into strings later, but I didn't want to deal with the pandoc templating syntax longer than necessary.
+	var supportedEnvsArrayString = ' .';
+	var supportedEnvsArray = supportedEnvsArrayString.split("|||");
+	supportedEnvsArray = supportedEnvsArray.map(inner => inner.split(";;;"));
+	var numberWithin = '';
+	var counterOffset = '';
+	var subcounterOffset = '';
+	var problemCounter = '';
+	const partLabels = 'abcdefghijklmnopqrstuvwxyz'.split('');
+	
+	// counterOffset may be negative, and by default if specified on the command line this gets string concatenated with the default given in the yaml config and this then causes a problem. Can be fixed by removing the default in the config file and converting to an int, but this causes a NaN error if no value is suplied on the command line, so if NaN set to 0.
+	counterOffset = parseInt(counterOffset);
+	if (isNaN(counterOffset)) {
+		counterOffset = 0;
+	}
+	
+	subcounterOffset = parseInt(subcounterOffset);
+	if (isNaN(subcounterOffset)) {
+		subcounterOffset = 0;
+	}
+	
+	problemCounter = parseInt(problemCounter);
+	if (isNaN(problemCounter)) {
+		problemCounter = 1;
+	}
+	
+	function sanitiseSelector(selector) {
+		// tex labels often have colons in which need escaping. There may be other escaping needed here. Unfortunately neither encodeURI nor encodeURIComponent do what I need, so use regex to do the escaping manually.
+		var sanitised = selector.replace(/\:/g,"\\\:");
+		sanitised = sanitised.replace(/(^[\d])/,"\\3$1 ");
+		sanitised = sanitised.replace(/\//g,"\\\/");
+		return sanitised
+	}
+	
+	function labelLinks() {
+		var refs = document.querySelectorAll("a[data-reference-type=ref]")
+		for (ref of refs) {
+			// Escape colons (or other) from the link title.
+			var ref_label = sanitiseSelector(ref.getAttribute("data-reference"));
+			// Hopefully ref is a reference to a div or a section, which should have the associated id. If so, we just need the data-number from the relevant DOM item.
+			var ref_to = document.querySelector("#"+ref_label);
+			if (ref_to !== null) {
+				var ref_number = ref_to.getAttribute("data-number");
+			} else {
+				// If ref is being used for an equation, then we need to try to parse the mathjax divs. This is fragile, but try to find the span which corresponds to the equation number we need.
+				try {
+					var mathjax_ref = "#mjx-eqn-"+ref_label;
+					ref_to = document.querySelector(mathjax_ref);
+					// Since this is a ref, we don't want the parens to be returned, so find the equation number and strip the parens.
+					var ref_number = ref_to.querySelector(".mjx-char").innerHTML.replace(/[()]/g,"");
+					ref.setAttribute("href",mathjax_ref);
+				}
+				// If we can't find a place to link to, just indicate a missing link.
+				catch (err){
+					var ref_number = "???"
+				}
+			}
+			ref.innerHTML = ref_number;
+		};
+	}
+	
+	function numberEnvs() {
+		for (var levelSpec = 0; levelSpec <= numberWithin; levelSpec++) {
+			var reqLevels = document.querySelectorAll(".level"+levelSpec);
+			for (var level of reqLevels) {
+				levelCount = level.getAttribute("data-number");
+				levelCount = String(parseFloat(levelCount)+(counterOffset));
+				levelCount = levelCount+(("."+subcounterOffset).repeat(numberWithin-levelSpec));
+				for (var counter of supportedEnvsArray) {
+					var envCount = 1;
+					var envs = level.querySelectorAll(counter.join(", "));
+					for (var env of envs) {
+						env.setAttribute("data-number",levelCount+"."+envCount);
+						envCount += 1;
+					}
+				}
+			}
+		}
+	}
+	
+	function numberFigs() {
+		// Figures should either be in a figure environment, or a table with image class imageTable thanks to the tableCaps filter.
+		figs = document.querySelectorAll("figure, .imageTable");
+		var fig_no = 1
+		for (var fig of figs) {
+			var cap
+			// For figures, we want to move the id to the figure, and set the data-number on both the figure and the figcaption
+			if (fig.nodeName == "FIGURE") {
+				cap = fig.querySelector("figcaption");
+				var img = fig.querySelector("img, embed")
+				if (img) {
+					var img_id = img.getAttribute("id");
+					fig.setAttribute("id",img_id);
+					img.removeAttribute("id");
+				}
+			// for tables (which must be .imageTable due to the querySelector above), we want to set the data-number on the table and the caption
+			} else if (fig.nodeName == "TABLE") {
+				cap = fig.querySelector("caption");
+			}
+			cap.setAttribute("data-number",fig_no);
+			fig.setAttribute("data-number",fig_no);
+			fig_no += 1;
+		}
+	}
+	
+	function numberGlobals() {
+		// This function numbers any environments that just use a global counter, such as a problem number on a problems sheet, where there are no sections to number with respect to.
+		probsols = document.querySelectorAll(".problem, .solution");
+		var prob_no = problemCounter;
+		var partNo = 0;
+		for (var probsol of probsols) {
+			if (probsol.className == "problem"){
+				prob_no +=1;
+				partNo = 0;
+				probsol.setAttribute("data-number",prob_no);
+			}
+			else {
+				if (probsol.parentNode.nodeName == "LI") {
+					var partLabel = partLabels[partNo];
+					probsol.setAttribute("data-number",prob_no.toString()+partLabel);
+					partNo +=1;
+				}
+				else{
+					probsol.setAttribute("data-number",prob_no);
+				}
+			}
+			
+		}
+		// sols = document.querySelectorAll(".solution");
+// 		var sol_no = problemCounter;
+// 		for (var sol of sols) {
+// 			sol.setAttribute("data-number",sol_no);
+// 			sol_no +=1
+// 		}
+	}
+	
+	// labelLinks() should occur last, so that the data-numbers have been correctly set first.
+	numberEnvs();
+	numberFigs();
+	numberGlobals();
+	labelLinks();
+}
+</script><script>
+	var imageDir = ''
+	imgs = document.querySelectorAll("img");
+	for (var img of imgs) {
+		imgsrc = img.getAttribute("src");
+		img.setAttribute("src",imageDir.concat(imgsrc));
+	}
+</script></body>
+</html>

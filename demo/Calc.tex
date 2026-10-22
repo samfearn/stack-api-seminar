@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+\usepackage{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{fullpage}
+\usepackage{graphicx}
+\graphicspath{{./Images/}}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+%\usepackage{esint}
+\usepackage{hyperref}
+\usepackage{float}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,filecolor=black,urlcolor=black,} 
+\setlength{\parindent}{0in}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+%\newcommand{\bphi}{\mbox{\boldmath $\phi$}}
+%\newcommand{\pauli}{\mbox{\boldmath $\tau$}}
+\renewcommand{\tilde}{\widetilde}
+\renewcommand{\epsilon}{\varepsilon}
+%\def\w {\omega}
+\renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+% \newcommand{\news}{\setcounter{equation}{0}}
+\newcommand{\bb}{\mathbb}
+\DeclareMathOperator{\dom}{Dom}
+\DeclareMathOperator{\ran}{Ran} 
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+
+\begin{document}
+
+\title{
+  Calculus I\\
+  Michaelmas Term
+\author{Sam Fearn \\ Original notes produced by Paul Sutcliffe }}
+\date{}
+\maketitle
+\tableofcontents\newpage
+%\include{CC6.tex}
+\section{First order differential equations}
+\input{Sections/sec_fos}
+\input{Sections/sec_foh}
+\input{Sections/sec_fol}
+\input{Sections/sec_foe}
+\input{Sections/sec_ber}
+\input{Sections/sec_sum_ode1}
+
+
+\end{document}

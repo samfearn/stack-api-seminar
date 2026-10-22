@@ -1,0 +1,54 @@
+%!TEX root = ../CC6.tex
+\subsection{First order separable ODEs}
+A \textbf{differential equation} is an equation that relates an unknown function (the dependent variable) to one or more of its derivatives. The \textbf{order} of a differential equation is the order of the highest derivative that appears in the equation. A function that satisfies the differential equation is called a \textbf{solution} and the process of finding a solution is called \textbf{solving} the differential equation. If the dependent variable depends on only a single unknown variable (the independent variable) then the differential equation is called an \textbf{ordinary differential equation} (ODE). We shall deal only with ODEs. 
+
+Differential equations for functions with several independent variables and involving partial derivatives are called \textbf{partial differential equations} (PDEs). These are generally much harder to solve and wont be discussed in this course.\\
+
+We shall usually discuss ODEs using $y$ to denote the dependent variable and $x$ for the independent variable, so solving the ODE involves finding $y(x).$\\
+
+The generic first order ODE may be written in the form
+
+\begin{equation}
+    \label{eq:GFOO}
+    \frac{dy}{dx}=f(x,y). \tag{$\star$}
+\end{equation}
+
+Generically this will have a one-parameter family of solutions ie. the \textbf{general solution} will contain an arbitrary constant. Assigning a particular value to this constant gives a \textbf{particular solution}. A particular solution will be singled out by the assignment of an \textbf{initial value} ie. requiring $y(x_0)=y_0,$ for given $x_0$ and $y_0.$ In this case the ODE is called an \textbf{initial value problem} (IVP). To solve an IVP, first solve the ODE to find the general solution and then determine the value of the constant so that the IVP is also satisfied.\\ 
+ 
+Depending upon the form of the function $f(x,y)$ there are various methods that can be used to solve certain kinds of ODEs. We shall discuss these in turn.\\
+
+The ODE \eqref{eq:GFOO} is \textbf{separable} if $f(x,y)=X(x)Y(y).$ 
+
+It can be solved by direct integration as
+\[\int \frac{1}{Y(y)}\,dy=\int X(x)\,dx.\]
+
+\begin{example}
+    Solve the IVP \[\frac{dy}{dx}=xe^{y-x} \quad
+    \text{with} \quad y(0)=0.\]
+    \begin{equation*}
+        \begin{gathered}
+            y'=xe^{-x}e^y, \quad \int e^{-y}\,dy=\int xe^{-x}\,dx, \quad e^{-y}=-xe^{-x}+\int e^{-x}\,dx=-xe^{-x}-e^{-x}+c \\
+            y=-\log(e^{-x}(1+x)-c). \quad y(0)=0=\log(1-c), \quad \text{so}\quad c=0. \\
+            y=-\log(e^{-x}(1+x))=x-\log(1+x).
+        \end{gathered}
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    Solve \[y'=\frac{2x(1+y^2)}{(1+x^2)^2}.\]
+    \[\int \frac{1}{1+y^2}\,dy=\int \frac{2x}{(1+x^2)^2}\,dx, \quad \tan^{-1}y=-\frac{1}{1+x^2}-c, \quad y=-\tan\bigg(\frac{1}{1+x^2}+c\bigg).\]
+\end{example}
+
+\begin{example}
+    Solve the IVP \[y'=\frac{x^2y-y}{1+y}, \quad y(3)=1.\]
+    \begin{equation*}
+        \begin{gathered}
+            \int \frac{1+y}{y}\,dy=\int (x^2-1)\, dx, \quad y+\log|y|=\frac{x^3}{3}-x+c.\quad \text{Put}\ x=3\ \text{and} \ y=1 \\
+            1=6+c, \quad c=-5, \quad \text{hence} \quad y+\log|y|=\frac{x^3}{3}-x-5.
+        \end{gathered}
+    \end{equation*}
+    
+    In this case the final solution can only be written in implicit form ie. it cannot be written in an explicit form $y=...$ where the right hand side is a function of $x$ only.
+\end{example}
+
+\newpage

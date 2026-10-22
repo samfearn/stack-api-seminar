@@ -1,0 +1,18 @@
+\subsection{First order homogeneous ODEs}
+The ODE \eqref{eq:GFOO} is \textbf{homogeneous} if $f(tx,ty)=f(x,y)\ \ \forall \ t\in\bb{R}.$\\
+
+In this case the substitution $y=xv$ produces a separable ODE for $v(x).$\\ 
+
+\begin{example}
+    Solve \[y'=\frac{y^2-x^2}{xy}.\]
+    We have \[f(tx,ty)=\frac{t^2y^2-t^2x^2}{txty}=\frac{y^2-x^2}{xy}=f(x,y) \quad \text{and hence the ODE is homogeneous.}\]  
+    Put $y=xv$ then $y'=v+xv'$, and the ODE becomes
+    \begin{equation*}
+        \begin{gathered}
+            v+xv'=\frac{x^2v^2-x^2}{x^2v}=v-\frac{1}{v}, \quad v'=-\frac{1}{xv}, \quad \int v\,dv=\int -\frac{1}{x}\,dx, \quad \frac{v^2}{2}=-\log|x|+\log c, \\
+            v=\pm \sqrt{2\log\bigg|\frac{c}{x}\bigg|}, \quad y=xv=\pm x\sqrt{2\log\bigg|\frac{c}{x}\bigg|}.
+        \end{gathered}
+    \end{equation*}
+\end{example} 
+\newpage
+ 

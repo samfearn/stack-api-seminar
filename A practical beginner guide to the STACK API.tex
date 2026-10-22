@@ -1,0 +1,292 @@
+\def\mymode{0} % Mode 0 for presentation, mode 1 (or not 0) for a handout.
+\if 0\mymode
+    \documentclass[hyperref={colorlinks = true, urlcolor = magenta}]{beamer}
+\else
+    \documentclass[handout]{beamer}
+    \usepackage{handoutWithNotes}
+    \pgfpagesuselayout{3 on 1 with notes}[a4paper]
+\fi
+% --- Begin Preamble --- % (fold)
+\setbeamerfont{footnote}{size=\tiny}
+\graphicspath{{./Images/},{../Images/}} % the folder in which images are stored for this project
+\usepackage{layout,verbatim,tikz,graphicx,amsmath,amssymb,appendixnumberbeamer,adjustbox,subcaption}
+% \usepackage[style=verbose]{biblatex}
+\usetikzlibrary{calc,shapes,arrows}
+\definecolor{DBlack}{RGB}{35,31,32}
+\definecolor{DPurple}{RGB}{126,49,123}
+\definecolor{DBlue}{RGB}{0,99,136}
+
+\newtheorem*{defn}{Definition}
+\theoremstyle{definition}
+
+\newtheorem*{thm}{Theorem}
+\theoremstyle{plain}
+
+\usecolortheme[RGB={83,13,88}]{structure}
+% This is the theme that we are modifying
+\usetheme{Boadilla}
+
+% Change the font colour to white on the title page to stand out against the purple
+\setbeamercolor{title}{fg=white}
+\setbeamerfont{title}{family=\rmfamily}
+\setbeamercolor{author}{fg=white}
+\setbeamerfont{author}{series=\bfseries}
+\setbeamercolor{institute}{fg=white}
+\setbeamercolor{date}{fg=white}
+\setbeamerfont{date}{series=\bfseries}
+
+% Remove the default ball bullet points in the toc, but keep the numbering
+\setbeamertemplate{sections/subsections in toc}[sections numbered]
+% Change the item icons to be circles rather than balls
+\setbeamertemplate{itemize items}[circle]
+% Define blocks to be rounded rectangles with shadows
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+% Turn the @ symbol into character class other
+\makeatother
+% Modify the footline to get a two part footline with subsection names
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  % Create the first box width 0.4 of slide, containing the Author's Name (Short)
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor%\ (\insertinstitute)
+  \end{beamercolorbox}%
+  % Create the second box width 0.6 of slide, containing Subsection name, current slide and total slides
+  \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{subsection in head/foot}%
+    \usebeamerfont{subsection in head/foot}\insertsubsection\hspace*{3em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{1ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+% Turn the @ symbol back to a letter
+\makeatletter
+
+% Remove the default navigation symbols from the bottom of the slides
+\setbeamertemplate{navigation symbols}{}
+
+% --- Start Custom Commands --- % (fold)
+\newcommand{\cfbox}[1]{\adjustbox{cfbox=DPurple 1pt}{#1}}
+% --- End Custom Commands --- % (end)
+
+% --- End Preamble --- % (end)
+
+\author{Sam Fearn}
+\institute[Durham]{Durham University}
+\title{A practical beginner guide to the STACK API}
+\date{October 22\textsuperscript{nd}, 2026}
+
+% The following code is inserted at every new subsection. It adds an outline slide with the current section and subsection highlighted.
+% \AtBeginSection[]
+% {
+%    \begin{frame}[plain,noframenumbering]
+%        \frametitle{Outline}
+%        \tableofcontents[currentsection,currentsubsection]
+%    \end{frame}
+% }
+
+\begin{document}
+
+% --- Title and Contents --- % (fold)
+% --- The Title Slide --- %
+{
+% Draw a purple box for the background of the title slide and add the durham logo at the bottom
+\setbeamertemplate{background canvas}{
+\begin{tikzpicture}
+    \clip (0,0) rectangle (\paperwidth,\paperheight);
+    \fill[color=DPurple] (0,0) rectangle (\paperwidth,\paperheight);
+    \node[inner sep=0pt] (MathsLogo) at (1.5,8.3)
+        {\includegraphics[width=20mm]{MathsLogo.png}};
+    \node[inner sep=0pt] (DurhamLogo) at (2.5,1)
+        {\includegraphics[width=50mm]{DULogo_WHITE.png}};
+\end{tikzpicture}
+}
+
+\begin{frame}[plain,noframenumbering]
+\maketitle
+\end{frame}
+}
+
+%--- Complete Outline --- %
+% \begin{frame}[plain,noframenumbering]
+%        \frametitle{Outline}
+%        \tableofcontents
+% \end{frame}
+%(end)
+
+\section{Overview} % (fold)
+\label{sec:overview}
+\begin{frame}{Aims}
+    \begin{itemize}
+        \item Explain the basics of what the STACK API is/does.
+        \item Workshop converting a sample tex file into html with an embedded example stack question (follow-along).
+        \item We will use \href{https://www.docker.com/products/docker-desktop/}{Docker Desktop} (\url{https://www.docker.com/products/docker-desktop/}).
+    \end{itemize}
+    \medskip
+    \begin{center}\href{https://www.docker.com/products/docker-desktop/}{\includegraphics[width=0.6\textwidth]{docker-logo}}\end{center}
+\end{frame}
+
+% section overview (end)
+
+\section{Formative Assessment} % (fold)
+\label{sec:formative_assessment}
+
+\begin{frame}[t]{Moodle Quizzes}
+    \url{https://www.docker.com/products/docker-desktop/}
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{Moodle-logo}
+    \end{center}
+    
+    STACK is an excellent tool for automating mathematics assessment, and as a Moodle quiz question plugin instructors can:
+    \begin{itemize}
+        \item<2-> Use STACK for formal assessments, with exportable grade data,
+        \item<3-> Use question behaviours to control how students interact with the questions,
+        \item<4-> Control timed release windows, with user/group overrides,
+        \item<5-> Use activity completion settings to further control access.
+    \end{itemize}
+    
+    \pause\medskip
+    
+    \uncover<6->{Most of these features are likely necessary for \emph{summative} assessment (assessment \emph{of} learning), but may not be for \emph{formative} assessment (assessment \emph{for} learning).}
+\end{frame}
+
+\begin{frame}[t]{Formative engagement barrier?}
+    \url{https://www.docker.com/products/docker-desktop/}
+    \only<1>{\begin{center}\includegraphics[width=0.75\textwidth]{Ultra1}\end{center}}
+    \only<2>{\begin{center}\includegraphics[width=0.75\textwidth]{Ultra2}\end{center}}
+    \only<3>{\begin{center}\includegraphics[width=0.75\textwidth]{Moodle1}\end{center}}
+    \only<4>{\begin{center}\includegraphics[width=0.75\textwidth]{Moodle2}\end{center}}
+    \only<5>{\begin{center}\includegraphics[width=0.75\textwidth]{Ultra3}\end{center}}
+    \only<6>{\begin{center}\includegraphics[width=0.75\textwidth]{Ultra4}\end{center}}
+    \only<7>{\begin{center}\includegraphics[width=0.75\textwidth]{ODENotes}\end{center}}
+\end{frame}
+
+% section formative_assessment (end)
+
+\section{The STACK API} % (fold)
+\label{sec:the_stack_api}
+\begin{frame}{Questions in notes}
+    \begin{center}
+        \includegraphics[width=0.65\textwidth]{no-moodle}
+    \end{center}
+    The STACK API allows questions to be used outside of Moodle, allowing for the possibility of embedding STACK questions directly inside html lecture notes.
+    
+    \medskip
+    
+    \begin{center}
+        \huge{DEMO}
+    \end{center}
+    
+\end{frame}
+
+\begin{frame}[t]{Setup}
+    \begin{center}
+        \includegraphics[width=0.2\textwidth]{docker-logo}
+    \end{center}
+    The STACK API can be installed and run via Docker.
+    \only<1>{\begin{center}\includegraphics[width=0.8\textwidth]{dockerdesktop}\end{center}}
+    
+    We can then communicate with the API at localhost:3080.
+    \medskip
+    
+    \uncover<2->{The API provides 5 routes:}
+    \begin{itemize}
+        \item<2-> (localhost:3080)/render
+        \item<3-> /validate
+        \item<4-> /grade
+        \item<5-> /download
+        \item<6-> /test
+    \end{itemize}
+    
+    \medskip
+    \uncover<7->{Each route expects to receive a POST request, whose body is a JSON object containing the question XML (and possibly other fields).}
+    
+    \medskip
+    \uncover<7->{Each route responds with a JSON object.}
+\end{frame}
+% section the_stack_api (end)
+
+\section{Creating dynamic notes} % (fold)
+\label{sec:creating_dynamic_notes}
+
+\begin{frame}[t,fragile]{Embedding questions in notes}
+    \begin{itemize}
+        \item<1-> The notes shown in the demo were originally written in \LaTeX{}.
+        \item<2-> A new markdown source file was created using Pandoc, plus some custom extensions. \uncover<3->{The mathematics (inline and display) remains in \LaTeX{}.}
+        \item<4-> This markdown can then be processed (again, Pandoc+) into both html and pdf outputs \uncover<5->{(can also go straight to html from \LaTeX{} if preferred).}
+        \item<6-> The required questions should be exported from Moodle in Moodle XML format.
+        \item<7-> Question blocks are included in the markdown using the following syntax:\\
+    \hspace{2em}\verb|::: {.que .stack data-qid="XXXX"}:::| \\
+    where \verb|XXXX| is the Question Name of the required question contained in the Moodle XML.
+        
+        \only<8>{If going straight to html, the following can instead be inserted into the html directly:\\
+    \hspace{2em}\texttt{<div class="que stack" data-qid="XXXX''></div>}.}
+        \item<9->The html notes and question XML file/s (as well as an additional `stackapicalls.js') are hosted on an appropriate webserver.
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}[t]{Process - key steps}
+    \only<1-6>{The notes load some JS, based on the code used in the example `(localhost:3080)/stack.php' page.
+    
+    \begin{itemize}
+        \item<2-> The (empty) divs of class ``que stack'' from before are numbered and populated, initially containing a button to generate a question.
+        \only<2>{\begin{center}\includegraphics[width=0.9\textwidth]{API1}\end{center}}
+        \item<3-> This button gets the XML of the question from a preconfigured list of XML files, and passes this to the /render route, before rendering the response.
+        \only<3>{\begin{center}\includegraphics[width=0.9\textwidth]{API2}\end{center}}
+        \item<4-> Event listeners are attached to the inputs to call the /validate route when the input changes.
+        \only<4>{\begin{center}\includegraphics[width=0.9\textwidth]{API3}\end{center}}
+        \item<5-> A random seed is used for the render, so the seed is attached to the answer submit button.
+        \item<6-> The answer submit button calls the /grade route, passing the xml as before, with the matching seed to the /render call. The response from this is then rendered to the page.
+    \end{itemize}}
+    \only<7>{\begin{center}\includegraphics[width=0.9\textwidth]{API4}\end{center}}
+\end{frame}
+
+\begin{frame}[t]{Notes and caveats}
+    \begin{itemize}
+        \item<1-> Currently, the routes expect the question xml to be sent as part of the request. This means a knowledgeable user can obtain the full question xml. \uncover<2->{This may not be acceptable if the same questions appear in formal assessments.}
+        \item<3-> Similarly, the response from /render contains the model answer. \uncover<4->{This is useful for a `reveal answer/s', even if the general/specific feedback doesn't contain this.}
+        \item<5-> In the example, the questions are essentially always in `Adaptive mode'.
+    \end{itemize}
+\end{frame}
+
+% section creating_dynamic_notes (end)
+
+\section{Conclusions} % (fold)
+\label{sec:conclusions}
+\begin{frame}[t]{Conclusions}
+    \begin{itemize}
+        \item<1-> html lecture notes are more accessible for all users, and should be standard.
+        \item<2-> In addition, they provide possibilities for enhanced interactivity, for example by embedding STACK questions directly into the notes.
+        \item<3-> This in turn enables closer integration of course materials, which I expect will lead to students making better use of practice questions.
+        \item<4-> We can also embed other interactive elements: \only<4->{Desmos}\only<5->{, Geogebra}\only<6->{, JupyterLite}\only<7->{, Visual PDE}\only<8->{, \ldots}
+        \only<4>{\begin{center}\includegraphics[width=0.5\textwidth]{Desmos}\end{center}}
+        \only<5>{\begin{center}\includegraphics[width=0.55\textwidth]{Geogebra}\end{center}}
+        \only<6>{\begin{center}\includegraphics[width=0.6\textwidth]{JupyterLite}\end{center}}
+        \only<7>{\begin{center}\includegraphics[width=0.6\textwidth]{VisualPDE}\end{center}}
+        \item<9-> While formal assessment questions are good to include, there is also (massive) scope for additional questions (and proofs), and more scaffolded examples.
+    \end{itemize}
+\end{frame}
+
+% section conclusions (end)
+
+\appendix
+%Slides in this section won't count towards the numbering of the main talk. They will instead have their own count.
+
+\section*{Thanks} % (fold)
+{\setbeamercolor{background canvas}{bg=DPurple!20}
+\begin{frame}[plain,noframenumbering]
+	
+	\begin{center}
+		\Huge
+		Thanks for listening!
+		
+		\vspace{1em}
+		Any Questions/Comments?
+	\end{center}
+\end{frame}}
+% section questions (end)
+
+%--- Next Frame ---%
+
+\end{document}

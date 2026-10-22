@@ -1,0 +1,24 @@
+name: stack_api
+services:
+  maxima:
+    image: mathinstitut/goemaxima:2026101500-latest
+    tmpfs:
+      - "/tmp"
+    restart: unless-stopped
+    cap_add:
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    environment:
+      GOEMAXIMA_QUEUE_LEN: 32
+    read_only: true
+  stack:
+    # Location of published STACK API image goes here.
+    image: stackmaths/stackapi:2026101500-latest
+    platform: linux/x86_64
+    restart: unless-stopped
+    ports:
+      - '3080:80'
+    volumes:
+      - ./demo:/srv/stack/api/public/app
