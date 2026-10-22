@@ -23,7 +23,10 @@ The seminar slides are also available in the root directory for later reference.
 * In the command terminal, navigate into the `demo` directory
 * Convert the sample `Calc.tex` to markdown using the command `docker run --rm --volume "$(pwd):/data" --user $(id -u):$(id -g) pandoc/core:3.7 Calc.tex -d tex2md.yaml -o Calc.md`.
 * Now we can insert a sample question into the markdown. Add the lines
- ```::: {.container-fluid .que .stack data-qid="1st order ODE -- Separable Explicit"}
- :::``` at the end of the first section, after the 3 examples (on line 80). 
+```
+::: {.container-fluid .que .stack data-qid="1st order ODE -- Separable Explicit"}
+:::
+``` 
+at the end of the first section, after the 3 examples (on line 80). 
 * Convert the new `Calc.md` to html using the command `docker run --rm --volume "$(pwd):/data" --user $(id -u):$(id -g) pandoc/core:3.7 Calc.md -d md2html.yaml -o Calc.html -V questionsFile='questions/calc.xml'`.
 * Check you can view the notes by browsing to `localhost:3080/app/Calc.html`.
