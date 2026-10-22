@@ -19,12 +19,14 @@ The seminar slides are also available in the root directory for later reference.
 * Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 * Open a terminal and navigate to the downloaded stack-seminar-api folder.
 * Set up the Docker container, by running the command:
-```docker compose -f docker-compose.yml up
+```
+docker compose -f docker-compose.yml up
 ```
 * Check the server is running by browsing to `localhost:3080` in a web browser. You should be able to interact with some sample STACK questions.
 * In the command terminal, navigate into the `demo` directory
 * Convert the sample `Calc.tex` to markdown using the command
-```docker run --rm --volume "$(pwd):/data" --user $(id -u):$(id -g) pandoc/core:3.7 Calc.tex -d tex2md.yaml -o Calc.md
+```
+docker run --rm --volume "$(pwd):/data" --user $(id -u):$(id -g) pandoc/core:3.7 Calc.tex -d tex2md.yaml -o Calc.md
 ```
 * Now we can insert a sample question into the markdown. Add the following lines at the end of the first section, after the 3 examples:
 ```
@@ -32,6 +34,7 @@ The seminar slides are also available in the root directory for later reference.
 :::
 ``` 
 * Convert the new `Calc.md` to html using the command 
-```docker run --rm --volume "$(pwd):/data" --user $(id -u):$(id -g) pandoc/core:3.7 Calc.md -d md2html.yaml -o Calc.html -V questionsFile='questions/calc.xml'
+```
+docker run --rm --volume "$(pwd):/data" --user $(id -u):$(id -g) pandoc/core:3.7 Calc.md -d md2html.yaml -o Calc.html -V questionsFile='questions/calc.xml'
 ```
 * Check you can view the notes by browsing to `localhost:3080/app/Calc.html`.
